@@ -3,12 +3,16 @@ import {
 	doc,
 	updateDoc,
 	serverTimestamp,
+	collection,
+	addDoc,
+	getDocs
 } from "firebase/firestore";
 import {
 	db
 } from "../firebase";
 
 const ChatRooms = {
+	ref: collection(db, "chatRooms"),
 	async createNewChatRooms(currentUser, user) {
 		// user: User that will be added to the chat room
 		// currentUser: Current user
@@ -40,6 +44,36 @@ const ChatRooms = {
 			},
 			[combinedId + ".date"]: serverTimestamp(),
 		});
+	},
+
+	newChatRoom(members) {
+		const roomData = {
+			messages: [],
+			members: members,
+			type: members.length > 2 ? "group" : "private",
+			lastMessage: null,
+		}
+
+		
+		const chatRoomName = roomData.type === "group" ? roomData.members.map(member => member.displayName).join(", ") : '';
+		roomData.name = chatRoomName;
+
+		return addDoc(this.ref, roomData);
+	},
+
+	async getAllChatRooms() {
+		const snapshot = await getDocs(this.ref);
+		return snapshot.docs.map(doc => doc.data());
+	},
+
+	async findPrivateChatRoom(members) {
+		// find in collection chatGroups
+		const allRooms = await this.getAllChatRooms();
+
+		// filter is private and contain 2 members with same uid of members
+		const privateRooms = allRooms.filter(room => room.type === "private" && room.members.every(member => members.some(m => m.uid === member.uid)));
+
+		return privateRooms[0];
 	}
 }
 

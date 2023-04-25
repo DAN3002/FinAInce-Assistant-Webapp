@@ -9,6 +9,7 @@
 	+ name: String - optional
 	+ lastMessage:
 		* like messages
+	+ type: Private or Group
 
 - users:
 	+ _id: ObjectID
@@ -16,5 +17,6 @@
 	+ fullName: String
 	+ email: String
 	+ phone: String
+	+ role: User or Chatbot
 
 
