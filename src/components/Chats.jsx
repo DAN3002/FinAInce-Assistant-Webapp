@@ -43,11 +43,11 @@ const Chats = () => {
 					})
 					.sort((a, b) => {
 						if (a.isBot) {
-							return 1;
+							return -1;
 						}
 
 						if (b.isBot) {
-							return -1;
+							return 1;
 						}
 
 						return (b.lastMessage?.timestamp || 0) - (a.lastMessage?.timestamp || 0);

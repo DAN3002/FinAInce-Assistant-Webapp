@@ -44,7 +44,6 @@ const Register = () => {
 			await bankingAPI.createUser(userData);
 			const user = await Users.newUser(res.user.uid, userData);
 			const newBotRoom = await ChatRooms.newChatRoom([user, BOT_DATA], true);
-			console.log(newBotRoom);
 
 			// Send welcome message by bot
 			ChatRooms.sendMessage(newBotRoom.id, {
