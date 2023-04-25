@@ -5,15 +5,20 @@ import { db } from "../firebase";
 import Message from "./Message";
 
 const Messages = () => {
-	const [messages, setMessages] = useState([]);
+	const [roomData, setRoomData] = useState({
+		messages: [],
+		isBot: false,
+	});
 	const { data } = useContext(ChatContext);
 
 	console.log(data.roomId);
 
+	
+
 	useEffect(() => {
 		if (data.roomId) {
 			const unSub = onSnapshot(doc(db, "chatRooms", data.roomId), (doc) => {
-				doc.exists() && setMessages(doc.data().messages);
+				doc.exists() && setRoomData(doc.data());
 			});
 	
 			return () => {
@@ -22,11 +27,11 @@ const Messages = () => {
 		}
 	}, [data.roomId]);
 
-	console.log(messages)
+	// console.log(messages)
 	return (
 		<div className="messages">
-			{messages.map((m) => (
-				<Message message={m} key={m.id} />
+			{roomData.messages.map((m) => (
+				<Message message={m} key={m.id} isBot={roomData.isBot} />
 			))}
 		</div>
 	);

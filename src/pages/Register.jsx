@@ -48,7 +48,7 @@ const Register = () => {
 			// Send welcome message by bot
 			ChatRooms.sendMessage(newBotRoom.id, {
 				text: 'Welcome to the Chat!',
-				createdAt: new Date().getTime(),
+				timestamp: new Date().getTime(),
 				sender: BOT_DATA.uid,
 			});
 

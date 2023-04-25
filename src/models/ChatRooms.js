@@ -15,16 +15,21 @@ import {
 	db
 } from "../firebase";
 import { v4 as uuidv4 } from 'uuid';
+import Users from "./Users";
 
 const ChatRooms = {
 	ref: collection(db, "chatRooms"),
-	newChatRoom(members, isBot = false) {
-		const membersData = members.map(member => {{
-			return  {
+	async newChatRoom(members, isBot = false) {
+		// Check if username is null and update by uid
+		const membersData = [];
+
+		for (const member of members) {
+			const user = await Users.getUserById(member.uid);
+			membersData.push({
 				uid: member.uid,
-				username: member.username
-			}
-		}});
+				username: user.username,
+			});
+		}
 
 		const roomData = {
 			messages: [],
@@ -36,6 +41,9 @@ const ChatRooms = {
 
 		const chatRoomName = roomData.type === "group" ? roomData.members.map(member => member.username).join(", ") : '';
 		roomData.name = chatRoomName;
+
+		console.log(roomData);
+
 		return addDoc(this.ref, roomData);
 	},
 

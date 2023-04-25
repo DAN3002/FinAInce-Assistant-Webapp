@@ -21,7 +21,7 @@ const Message = ({ message, isBot }) => {
 			<div className="messageInfo">
 				<img
 					src={
-						(!isOwner && isBot) ? BOT_DATA.avatar : USER_AVA
+						(!isOwner && isBot) ? BOT_DATA.photoURL : USER_AVA
 					}
 					alt=""
 				/>

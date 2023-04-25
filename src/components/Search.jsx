@@ -57,6 +57,7 @@ const Search = () => {
 
 		if (!chatRooms) {
 			// Create a new chat room
+			console.log(currentUserBasic);
 			const newChatRoom = await ChatRooms.newChatRoom([currentUserBasic, user]);		
 		}
 
