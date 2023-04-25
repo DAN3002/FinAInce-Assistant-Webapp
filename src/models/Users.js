@@ -9,8 +9,13 @@ import {
 
 const Users = {
 	async newUser (userId, userData) {
+		// create and return new user
 		await setDoc(doc(db, "users", userId), userData);
-		return true;
+
+		return {
+			uid: userId,
+			...userData,
+		};
 	},
 	async getUserById (userId) {
 		const userDoc = await getDoc(doc(db, "users", userId));

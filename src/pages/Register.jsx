@@ -10,8 +10,6 @@ import ChatRooms from '../models/ChatRooms';
 import Users from '../models/Users';
 import bankingAPI from '../api/banking';
 
-const DEFAULT_AVA_LINK = 'https://firebasestorage.googleapis.com/v0/b/junctionx-web-app.appspot.com/o/user-avatar.png?alt=media&token=53d689d8-96e5-419b-8ea9-39196e33ab6e';
-
 const Register = () => {
 	const [err, setErr] = useState(false);
 	// const [loading, setLoading] = useState(false);
@@ -44,11 +42,22 @@ const Register = () => {
 			};
 
 			await bankingAPI.createUser(userData);
-			await Users.newUser(res.user.uid, userData);
-			// ChatRooms.createNewChatRooms(res.user, BOT_DATA);
+			const user = await Users.newUser(res.user.uid, userData);
+			const newBotRoom = await ChatRooms.newChatRoom([user, BOT_DATA], true);
+			console.log(newBotRoom);
+
+			// Send welcome message by bot
+			ChatRooms.sendMessage(newBotRoom.id, {
+				text: 'Welcome to the Chat!',
+				createdAt: new Date().getTime(),
+				sender: BOT_DATA.uid,
+			});
+
+
 			navigate("/");
 		} catch (err) {
 			setErr(true);
+			console.log(err);
 			// setLoading(false);
 		}
 	};

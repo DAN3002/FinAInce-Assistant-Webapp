@@ -14,42 +14,10 @@ import {
 import {
 	db
 } from "../firebase";
+import { v4 as uuidv4 } from 'uuid';
 
 const ChatRooms = {
 	ref: collection(db, "chatRooms"),
-	async createNewChatRooms(currentUser, user) {
-		// user: User that will be added to the chat room
-		// currentUser: Current user
-		const combinedId =
-			currentUser.uid > user.uid ?
-			currentUser.uid + user.uid :
-			user.uid + currentUser.uid;
-
-		//create a chat in chats collection
-		await setDoc(doc(db, "chats", combinedId), {
-			messages: []
-		});
-
-		//create user chats
-		await updateDoc(doc(db, "userChats", currentUser.uid), {
-			[combinedId + ".userInfo"]: {
-				uid: user.uid,
-				username: user.username,
-				photoURL: user.photoURL,
-			},
-			[combinedId + ".date"]: serverTimestamp(),
-		});
-
-		await updateDoc(doc(db, "userChats", user.uid), {
-			[combinedId + ".userInfo"]: {
-				uid: currentUser.uid,
-				username: currentUser.username,
-				photoURL: currentUser.photoURL,
-			},
-			[combinedId + ".date"]: serverTimestamp(),
-		});
-	},
-
 	newChatRoom(members, isBot = false) {
 		const membersData = members.map(member => {{
 			return  {
@@ -68,7 +36,6 @@ const ChatRooms = {
 
 		const chatRoomName = roomData.type === "group" ? roomData.members.map(member => member.username).join(", ") : '';
 		roomData.name = chatRoomName;
-
 		return addDoc(this.ref, roomData);
 	},
 
@@ -91,6 +58,8 @@ const ChatRooms = {
 		// get doc by id
 		const roomRef = doc(db, "chatRooms", roomId);
 		const roomDoc = await getDoc(roomRef);
+
+		messageData.id = uuidv4();
 
 		if (roomDoc.exists()) {
 			// push to messages array
