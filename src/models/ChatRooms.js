@@ -50,14 +50,15 @@ const ChatRooms = {
 	},
 
 	newChatRoom(members, isBot = false) {
+		const membersId = members.map(member => member.uid);
+
 		const roomData = {
 			messages: [],
-			members: members,
+			members: membersId,
 			type: members.length > 2 ? "group" : "private",
 			lastMessage: null,
 			isBot,
 		}
-
 
 		const chatRoomName = roomData.type === "group" ? roomData.members.map(member => member.username).join(", ") : '';
 		roomData.name = chatRoomName;
@@ -75,17 +76,9 @@ const ChatRooms = {
 		const allRooms = await this.getAllChatRooms();
 
 		// filter is private and contain 2 members with same uid of members
-		const privateRooms = allRooms.filter(room => room.type === "private" && room.members.every(member => members.some(m => m.uid === member.uid)));
+		const privateRooms = allRooms.filter(room => room.type === "private" && room.members.includes(members[0].uid) && room.members.includes(members[1].uid));
 
 		return privateRooms[0];
-	},
-
-	async findRoomOfUser(uid) {
-		const q = query(this.ref, where("members", "array-contains", {
-			uid: uid
-		}));
-		const snapshot = await getDocs(q);
-		return snapshot.docs.map(doc => doc.data());
 	},
 
 	async sendMessage(roomId, messageData) {

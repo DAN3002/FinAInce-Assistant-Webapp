@@ -1,15 +1,24 @@
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getStorage } from "firebase/storage";
-import { getFirestore } from "firebase/firestore";
+import {
+	initializeApp
+} from "firebase/app";
+import {
+	getAuth
+} from "firebase/auth";
+import {
+	getStorage
+} from "firebase/storage";
+import {
+	getFirestore
+} from "firebase/firestore";
 
 const firebaseConfig = {
 	apiKey: process.env.REACT_APP_FIREBASE_KEY,
-	authDomain: "junctionx-web-app.firebaseapp.com",
-	projectId: "junctionx-web-app",
-	storageBucket: "junctionx-web-app.appspot.com",
-	messagingSenderId: "478198570445",
-	appId: "1:478198570445:web:72eeaab7d7665bb75c3884"
+	authDomain: "juntion-test.firebaseapp.com",
+	projectId: "juntion-test",
+	storageBucket: "juntion-test.appspot.com",
+	messagingSenderId: "573952321105",
+	appId: "1:573952321105:web:22bdafa4934350018bfa70",
+	measurementId: "G-N81YWTPY70"
 };
 
 // Initialize Firebase
