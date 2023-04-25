@@ -5,6 +5,8 @@ import { auth, db } from '../firebase';
 // import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { doc, setDoc } from 'firebase/firestore';
 import { useNavigate, Link } from 'react-router-dom';
+import { BOT_DATA } from '../config';
+import ChatRooms from '../models/ChatRooms';
 import bankingAPI from '../api/banking';
 
 const DEFAULT_AVA_LINK = 'https://firebasestorage.googleapis.com/v0/b/junctionx-web-app.appspot.com/o/user-avatar.png?alt=media&token=53d689d8-96e5-419b-8ea9-39196e33ab6e';
@@ -49,15 +51,17 @@ const Register = () => {
 			});
 
 			//create user on firestore
-			await setDoc(doc(db, 'users', res.user.uid), {
+			const currentUserData = {
 				uid: res.user.uid,
 				displayName,
 				email,
 				photoURL: DEFAULT_AVA_LINK,
-			});
+			};
+			await setDoc(doc(db, 'users', res.user.uid), currentUserData);
 
 			//create empty user chats on firestore
 			await setDoc(doc(db, 'userChats', res.user.uid), {});
+			ChatRooms.createNewChatRooms(res.user, BOT_DATA);
 			navigate("/");
 		} catch (err) {
 			setErr(true);
