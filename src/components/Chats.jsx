@@ -50,7 +50,7 @@ const Chats = () => {
 							return -1;
 						}
 
-						return (a.lastMessage?.timestamp || 0) - (b.lastMessage?.timestamp || 0);
+						return (b.lastMessage?.timestamp || 0) - (a.lastMessage?.timestamp || 0);
 					})
 
 					// console.log(data);
