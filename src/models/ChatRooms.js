@@ -5,7 +5,9 @@ import {
 	serverTimestamp,
 	collection,
 	addDoc,
-	getDocs
+	getDocs,
+	where,
+	query,
 } from "firebase/firestore";
 import {
 	db
@@ -46,12 +48,13 @@ const ChatRooms = {
 		});
 	},
 
-	newChatRoom(members) {
+	newChatRoom(members, isBot=false) {
 		const roomData = {
 			messages: [],
 			members: members,
 			type: members.length > 2 ? "group" : "private",
 			lastMessage: null,
+			isBot,
 		}
 
 		
@@ -74,6 +77,14 @@ const ChatRooms = {
 		const privateRooms = allRooms.filter(room => room.type === "private" && room.members.every(member => members.some(m => m.uid === member.uid)));
 
 		return privateRooms[0];
+	},
+
+	async findRoomOfUser(uid) {
+		const q = query(this.ref, where("members", "array-contains", {
+			uid: uid
+		}));
+		const snapshot = await getDocs(q);
+		return snapshot.docs.map(doc => doc.data());
 	}
 }
 

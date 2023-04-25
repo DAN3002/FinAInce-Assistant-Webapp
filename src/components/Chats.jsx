@@ -1,34 +1,58 @@
-import { doc, onSnapshot } from "firebase/firestore";
+import { onSnapshot, collection } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
 import { db } from "../firebase";
-import { BOT_DATA } from "../config";
+import { BOT_DATA, USER_AVA } from "../config";
 
 const Chats = () => {
-	const [chats, setChats] = useState([]);
+	const [rooms, setRooms] = useState([]);
 
 	const { currentUser } = useContext(AuthContext);
 	const { dispatch } = useContext(ChatContext);
 
 	useEffect(() => {
 		const getChats = () => {
-			const unsub = onSnapshot(doc(db, "userChats", currentUser.uid), (doc) => {
-				// Sort that to keep Chat Bot alway on top (check by uid)
-				const data = Object.entries(doc.data())?.sort((a,b) => {
-					if (b[1].userInfo.uid === BOT_DATA.uid) {
-						return 1;
-					}
+			// const unsub = onSnapshot(doc(db, "userChats", currentUser.uid), (doc) => {
+			// 	// Sort that to keep Chat Bot alway on top (check by uid)
+			// 	const data = Object.entries(doc.data())?.sort((a,b) => {
+			// 		if (b[1].userInfo.uid === BOT_DATA.uid) {
+			// 			return 1;
+			// 		}
 
-					if (a[1].userInfo.uid === BOT_DATA.uid) {
-						return -1;
-					}
+			// 		if (a[1].userInfo.uid === BOT_DATA.uid) {
+			// 			return -1;
+			// 		}
 
 
-					return b[1].date - a[1].date;
-				});
+			// 		return b[1].date - a[1].date;
+			// 	});
 
-				setChats(data);
+			// 	setChats(data);
+			// });
+
+			const unsub = onSnapshot(collection(db, 'chatRooms'), (querySnapshot) => {
+					const allRoom = querySnapshot.docs.map(doc => doc.data());
+					
+					// Filter room contain current.uid as member
+					const data = allRoom
+					.filter(el => {
+						return el.members.find(member => member.uid === currentUser.uid);
+					})
+					.sort((a, b) => {
+						if (a.isBot) {
+							return 1;
+						}
+
+						if (b.isBot) {
+							return -1;
+						}
+
+						return (a.lastMessage?.timestamp || 0) - (b.lastMessage?.timestamp || 0);
+					})
+
+					// console.log(data);
+					setRooms(data);
 			});
 
 			return () => {
@@ -45,19 +69,27 @@ const Chats = () => {
 
 	return (
 		<div className="chats">
-			{chats.map((chat) => (
-				<div
-					className="userChat"
-					key={chat[0]}
-					onClick={() => handleSelect(chat[1].userInfo)}
-				>
-					<img src={chat[1].userInfo.photoURL} alt="" />
-					<div className="userChatInfo">
-						<span>{chat[1].userInfo.displayName}</span>
-						<p>{chat[1].lastMessage?.text}</p>
+			{rooms.map((room) => {
+				let roomName = room.name;
+				if (!roomName && room.type === 'private') {
+					roomName = room.members.find(member => member.uid !== currentUser.uid).displayName;
+				}
+
+				const photo = room.isBot ? BOT_DATA.photoURL : USER_AVA;
+				return (
+					<div
+						className="userChat"
+						key={room.id}
+						// onClick={() => handleSelect(chat[1].userInfo)}
+					>
+						<img src={photo} alt="" />
+						<div className="userChatInfo">
+							<span>{roomName}</span>
+							<p>{room.lastMessage?.message}</p>
+						</div>
 					</div>
-				</div>
-			))}
+				)
+			})}
 		</div>
 	);
 };
