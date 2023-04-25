@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
 import { db } from "../firebase";
+import { BOT_DATA } from "../config";
 
 const Chats = () => {
 	const [chats, setChats] = useState([]);
@@ -13,7 +14,21 @@ const Chats = () => {
 	useEffect(() => {
 		const getChats = () => {
 			const unsub = onSnapshot(doc(db, "userChats", currentUser.uid), (doc) => {
-				setChats(doc.data());
+				// Sort that to keep Chat Bot alway on top (check by uid)
+				const data = Object.entries(doc.data())?.sort((a,b) => {
+					if (b[1].userInfo.uid === BOT_DATA.uid) {
+						return 1;
+					}
+
+					if (a[1].userInfo.uid === BOT_DATA.uid) {
+						return -1;
+					}
+
+
+					return b[1].date - a[1].date;
+				});
+
+				setChats(data);
 			});
 
 			return () => {
@@ -30,7 +45,7 @@ const Chats = () => {
 
 	return (
 		<div className="chats">
-			{Object.entries(chats)?.sort((a,b)=>b[1].date - a[1].date).map((chat) => (
+			{chats.map((chat) => (
 				<div
 					className="userChat"
 					key={chat[0]}
