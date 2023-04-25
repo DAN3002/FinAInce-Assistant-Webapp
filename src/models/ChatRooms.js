@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 import {
 	setDoc,
 	doc,
@@ -50,11 +51,16 @@ const ChatRooms = {
 	},
 
 	newChatRoom(members, isBot = false) {
-		const membersId = members.map(member => member.uid);
+		const membersData = members.map(member => {{
+			return  {
+				uid: member.uid,
+				username: member.username
+			}
+		}});
 
 		const roomData = {
 			messages: [],
-			members: membersId,
+			members: membersData,
 			type: members.length > 2 ? "group" : "private",
 			lastMessage: null,
 			isBot,
@@ -76,7 +82,7 @@ const ChatRooms = {
 		const allRooms = await this.getAllChatRooms();
 
 		// filter is private and contain 2 members with same uid of members
-		const privateRooms = allRooms.filter(room => room.type === "private" && room.members.includes(members[0].uid) && room.members.includes(members[1].uid));
+		const privateRooms = allRooms.filter(room => room.type === "private" && room.members.every(member => members.some(m => m.uid === member.uid)));
 
 		return privateRooms[0];
 	},

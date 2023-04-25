@@ -39,7 +39,7 @@ const Chats = () => {
 					// Filter room contain current.uid as member
 					const data = allRoom
 					.filter(el => {
-						return el.members.find(member => member === currentUser.uid);
+						return el.members.find(member => member.uid === currentUser.uid);
 					})
 					.sort((a, b) => {
 						if (a.isBot) {
@@ -73,7 +73,7 @@ const Chats = () => {
 			{rooms.map((room) => {
 				let roomName = room.name;
 				if (!roomName && room.type === 'private') {
-					roomName = room.members.find(memberUid => memberUid !== currentUser.uid).username;
+					roomName = room.members.find(member => member.uid !== currentUser.uid).username;
 				}
 
 				const photo = room.isBot ? BOT_DATA.photoURL : USER_AVA;
