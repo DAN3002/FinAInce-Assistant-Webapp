@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import bankingAPI from "../api/banking";
+import Users from "../models/Users";
 
 const Login = () => {
 	const [err, setErr] = useState(false);
@@ -15,11 +16,16 @@ const Login = () => {
 
 		try {
 			const user = await signInWithEmailAndPassword(auth, email, password);
-			const { displayName } = user.user;
+
+			// Get user data
+			const currentUser = await Users.getUser(user.user.uid);
+			const { userName } = currentUser;
+
 			const bankingTokenRes = await bankingAPI.login({
-				username: displayName,
+				username: userName,
 				password: password,
 			});
+
 			const token = bankingTokenRes.data.token;
 			localStorage.setItem("Banking_token", token);
 			navigate("/")

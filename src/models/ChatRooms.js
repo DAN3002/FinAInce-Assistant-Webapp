@@ -33,7 +33,7 @@ const ChatRooms = {
 		await updateDoc(doc(db, "userChats", currentUser.uid), {
 			[combinedId + ".userInfo"]: {
 				uid: user.uid,
-				displayName: user.displayName,
+				userName: user.userName,
 				photoURL: user.photoURL,
 			},
 			[combinedId + ".date"]: serverTimestamp(),
@@ -42,7 +42,7 @@ const ChatRooms = {
 		await updateDoc(doc(db, "userChats", user.uid), {
 			[combinedId + ".userInfo"]: {
 				uid: currentUser.uid,
-				displayName: currentUser.displayName,
+				userName: currentUser.userName,
 				photoURL: currentUser.photoURL,
 			},
 			[combinedId + ".date"]: serverTimestamp(),
@@ -59,7 +59,7 @@ const ChatRooms = {
 		}
 
 
-		const chatRoomName = roomData.type === "group" ? roomData.members.map(member => member.displayName).join(", ") : '';
+		const chatRoomName = roomData.type === "group" ? roomData.members.map(member => member.userName).join(", ") : '';
 		roomData.name = chatRoomName;
 
 		return addDoc(this.ref, roomData);

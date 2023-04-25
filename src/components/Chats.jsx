@@ -74,7 +74,7 @@ const Chats = () => {
 			{rooms.map((room) => {
 				let roomName = room.name;
 				if (!roomName && room.type === 'private') {
-					roomName = room.members.find(member => member.uid !== currentUser.uid).displayName;
+					roomName = room.members.find(member => member.uid !== currentUser.uid).userName;
 				}
 
 				const photo = room.isBot ? BOT_DATA.photoURL : USER_AVA;
