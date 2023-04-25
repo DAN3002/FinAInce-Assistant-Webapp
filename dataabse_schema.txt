@@ -1,0 +1,20 @@
+- chatRooms:
+	+ _id: ObjectID
+	+ members: Array(userID)
+	+ messages:
+		* id
+		* sender: userID
+		* message: String
+		* timestamp: Date
+	+ name: String - optional
+	+ lastMessage:
+		* like messages
+
+- users:
+	+ _id: ObjectID
+	+ username: String
+	+ fullName: String
+	+ email: String
+	+ phone: String
+
+
