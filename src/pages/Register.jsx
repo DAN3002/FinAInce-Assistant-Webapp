@@ -21,7 +21,7 @@ const Register = () => {
 		// setLoading(true);
 		e.preventDefault();
 		const email = e.target[0].value;
-		const userName = e.target[1].value;
+		const username = e.target[1].value;
 		const fullName = e.target[2].value;
 		const phoneNumber = e.target[3].value;
 		const password = e.target[4].value;
@@ -36,20 +36,15 @@ const Register = () => {
 			);
 
 			const userData = {
-				username: userName,
+				username: username,
 				fullname: fullName,
 				phone_number: phoneNumber,
 				email: email,
 				password: password,
 			};
 
-			console.log(res.user.uid)
-
 			await bankingAPI.createUser(userData);
 			await Users.newUser(res.user.uid, userData);
-
-			//create empty user chats on firestore
-		
 			// ChatRooms.createNewChatRooms(res.user, BOT_DATA);
 			navigate("/");
 		} catch (err) {

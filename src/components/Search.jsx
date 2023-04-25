@@ -16,7 +16,7 @@ import { AuthContext } from "../context/AuthContext";
 import ChatRooms from "../models/ChatRooms";
 
 const Search = () => {
-	const [username, setUsername] = useState("");
+	const [username, setusername] = useState("");
 	const [user, setUser] = useState(null);
 	const [err, setErr] = useState(false);
 
@@ -24,13 +24,13 @@ const Search = () => {
 
 	const currentUserBasic = {
 		uid: currentUser.uid,
-		userName: currentUser.userName,
+		username: currentUser.username,
 	};
 
 	const handleSearch = async () => {
 		const q = query(
 			collection(db, "users"),
-			where("userName", "==", username)
+			where("username", "==", username)
 		);
 
 		try {
@@ -67,7 +67,7 @@ const Search = () => {
 		// 		await updateDoc(doc(db, "userChats", currentUser.uid), {
 		// 			[combinedId + ".userInfo"]: {
 		// 				uid: user.uid,
-		// 				userName: user.userName,
+		// 				username: user.username,
 		// 				photoURL: user.photoURL,
 		// 			},
 		// 			[combinedId + ".date"]: serverTimestamp(),
@@ -76,7 +76,7 @@ const Search = () => {
 		// 		await updateDoc(doc(db, "userChats", user.uid), {
 		// 			[combinedId + ".userInfo"]: {
 		// 				uid: currentUser.uid,
-		// 				userName: currentUser.userName,
+		// 				username: currentUser.username,
 		// 				photoURL: currentUser.photoURL,
 		// 			},
 		// 			[combinedId + ".date"]: serverTimestamp(),
@@ -85,7 +85,7 @@ const Search = () => {
 		// } catch (err) {}
 
 		setUser(null);
-		setUsername("")
+		setusername("")
 	};
 	return (
 		<div className="search">
@@ -94,7 +94,7 @@ const Search = () => {
 					type="text"
 					placeholder="Find a user"
 					onKeyDown={handleKey}
-					onChange={(e) => setUsername(e.target.value)}
+					onChange={(e) => setusername(e.target.value)}
 					value={username}
 				/>
 			</div>
@@ -103,7 +103,7 @@ const Search = () => {
 				<div className="userChat" onClick={handleSelect}>
 					<img src={user.photoURL} alt="" />
 					<div className="userChatInfo">
-						<span>{user.userName}</span>
+						<span>{user.username}</span>
 					</div>
 				</div>
 			)}

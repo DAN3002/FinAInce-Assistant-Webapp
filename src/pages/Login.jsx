@@ -18,11 +18,11 @@ const Login = () => {
 			const user = await signInWithEmailAndPassword(auth, email, password);
 
 			// Get user data
-			const currentUser = await Users.getUser(user.user.uid);
-			const { userName } = currentUser;
+			const currentUser = await Users.getUserById(user.user.uid);
+			const { username } = currentUser;
 
 			const bankingTokenRes = await bankingAPI.login({
-				username: userName,
+				username: username,
 				password: password,
 			});
 
@@ -30,6 +30,7 @@ const Login = () => {
 			localStorage.setItem("Banking_token", token);
 			navigate("/")
 		} catch (err) {
+			console.log(err);
 			setErr(true);
 		}
 	};
