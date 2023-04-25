@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
+import bankingAPI from "../api/banking";
 
 const Login = () => {
 	const [err, setErr] = useState(false);
@@ -13,7 +14,14 @@ const Login = () => {
 		const password = e.target[1].value;
 
 		try {
-			await signInWithEmailAndPassword(auth, email, password);
+			const user = await signInWithEmailAndPassword(auth, email, password);
+			const { displayName } = user.user;
+			const bankingTokenRes = await bankingAPI.login({
+				username: displayName,
+				password: password,
+			});
+			const token = bankingTokenRes.data.token;
+			localStorage.setItem("Banking_token", token);
 			navigate("/")
 		} catch (err) {
 			setErr(true);
