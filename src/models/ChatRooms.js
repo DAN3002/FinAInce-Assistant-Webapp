@@ -6,6 +6,7 @@ import {
 	collection,
 	addDoc,
 	getDocs,
+	getDoc,
 	where,
 	query,
 } from "firebase/firestore";
@@ -48,7 +49,7 @@ const ChatRooms = {
 		});
 	},
 
-	newChatRoom(members, isBot=false) {
+	newChatRoom(members, isBot = false) {
 		const roomData = {
 			messages: [],
 			members: members,
@@ -57,7 +58,7 @@ const ChatRooms = {
 			isBot,
 		}
 
-		
+
 		const chatRoomName = roomData.type === "group" ? roomData.members.map(member => member.displayName).join(", ") : '';
 		roomData.name = chatRoomName;
 
@@ -85,6 +86,20 @@ const ChatRooms = {
 		}));
 		const snapshot = await getDocs(q);
 		return snapshot.docs.map(doc => doc.data());
+	},
+
+	async sendMessage(roomId, messageData) {
+		// get doc by id
+		const roomRef = doc(db, "chatRooms", roomId);
+		const roomDoc = await getDoc(roomRef);
+
+		if (roomDoc.exists()) {
+			// push to messages array
+			return await updateDoc(roomRef, {
+				messages: [...roomDoc.data().messages, messageData],
+				lastMessage: messageData,
+			});
+		}
 	}
 }
 

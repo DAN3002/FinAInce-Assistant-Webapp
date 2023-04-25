@@ -4,8 +4,9 @@
 	+ messages:
 		* id
 		* sender: userID
-		* message: String
+		* text: String
 		* timestamp: Date
+		* img: String
 	+ name: String - optional
 	+ lastMessage:
 		* like messages

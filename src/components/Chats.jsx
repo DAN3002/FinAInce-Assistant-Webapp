@@ -32,7 +32,9 @@ const Chats = () => {
 			// });
 
 			const unsub = onSnapshot(collection(db, 'chatRooms'), (querySnapshot) => {
-					const allRoom = querySnapshot.docs.map(doc => doc.data());
+					const allRoom = querySnapshot.docs.map(doc => {
+						return { id: doc.id, ...doc.data() };
+					});
 					
 					// Filter room contain current.uid as member
 					const data = allRoom
@@ -63,8 +65,8 @@ const Chats = () => {
 		currentUser.uid && getChats();
 	}, [currentUser.uid]);
 
-	const handleSelect = (u) => {
-		dispatch({ type: "CHANGE_USER", payload: u });
+	const handleSelect = (roomId, roomName) => {
+		dispatch({ type: "CHANGE_USER", payload: { roomId, roomName } });
 	};
 
 	return (
@@ -80,12 +82,12 @@ const Chats = () => {
 					<div
 						className="userChat"
 						key={room.id}
-						// onClick={() => handleSelect(chat[1].userInfo)}
+						onClick={() => handleSelect(room.id, roomName)}
 					>
 						<img src={photo} alt="" />
 						<div className="userChatInfo">
 							<span>{roomName}</span>
-							<p>{room.lastMessage?.message}</p>
+							<p>{room.lastMessage?.text}</p>
 						</div>
 					</div>
 				)

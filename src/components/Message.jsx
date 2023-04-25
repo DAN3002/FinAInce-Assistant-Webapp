@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useRef } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
+import { BOT_DATA, USER_AVA } from "../config"; 
 
-const Message = ({ message }) => {
+const Message = ({ message, isBot }) => {
 	const { currentUser } = useContext(AuthContext);
-	const { data } = useContext(ChatContext);
+	const isOwner = message.sender === currentUser.uid;
 
 	const ref = useRef();
 
@@ -15,18 +16,16 @@ const Message = ({ message }) => {
 	return (
 		<div
 			ref={ref}
-			className={`message ${message.senderId === currentUser.uid && "owner"}`}
+			className={`message ${isOwner && "owner"}`}
 		>
 			<div className="messageInfo">
 				<img
 					src={
-						message.senderId === currentUser.uid
-							? currentUser.photoURL
-							: data.user.photoURL
+						(!isOwner && isBot) ? BOT_DATA.avatar : USER_AVA
 					}
 					alt=""
 				/>
-				<span>just now</span>
+				{/* <span>just now</span> */}
 			</div>
 			<div className="messageContent">
 				<p>{message.text}</p>

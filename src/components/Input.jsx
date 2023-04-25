@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 import { db, storage } from "../firebase";
 import { v4 as uuid } from "uuid";
+import ChatRooms from "../models/ChatRooms";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 const Input = () => {
@@ -33,42 +34,24 @@ const Input = () => {
 				},
 				() => {
 					getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-						await updateDoc(doc(db, "chats", data.chatId), {
-							messages: arrayUnion({
-								id: uuid(),
-								text,
-								senderId: currentUser.uid,
-								date: Timestamp.now(),
-								img: downloadURL,
-							}),
-						});
+						const message = {
+							img: downloadURL,
+							sender: currentUser.uid,
+							timestamp: Timestamp.now(),
+						};
+						ChatRooms.sendMessage(data.roomId, message);
 					});
 				}
 			);
 		} else {
-			await updateDoc(doc(db, "chats", data.chatId), {
-				messages: arrayUnion({
-					id: uuid(),
-					text,
-					senderId: currentUser.uid,
-					date: Timestamp.now(),
-				}),
-			});
+			const message = {
+				text,
+				sender: currentUser.uid,
+				timestamp: Timestamp.now(),
+			};
+			ChatRooms.sendMessage(data.roomId, message);
 		}
 
-		await updateDoc(doc(db, "userChats", currentUser.uid), {
-			[data.chatId + ".lastMessage"]: {
-				text,
-			},
-			[data.chatId + ".date"]: serverTimestamp(),
-		});
-
-		await updateDoc(doc(db, "userChats", data.user.uid), {
-			[data.chatId + ".lastMessage"]: {
-				text,
-			},
-			[data.chatId + ".date"]: serverTimestamp(),
-		});
 
 		setText("");
 		setImg(null);

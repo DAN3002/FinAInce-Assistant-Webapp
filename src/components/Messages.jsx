@@ -8,18 +8,21 @@ const Messages = () => {
 	const [messages, setMessages] = useState([]);
 	const { data } = useContext(ChatContext);
 
-	useEffect(() => {
-		const unSub = onSnapshot(doc(db, "chats", data.chatId), (doc) => {
-			doc.exists() && setMessages(doc.data().messages);
-		});
+	console.log(data.roomId);
 
-		return () => {
-			unSub();
-		};
-	}, [data.chatId]);
+	useEffect(() => {
+		if (data.roomId) {
+			const unSub = onSnapshot(doc(db, "chatRooms", data.roomId), (doc) => {
+				doc.exists() && setMessages(doc.data().messages);
+			});
+	
+			return () => {
+				unSub();
+			};
+		}
+	}, [data.roomId]);
 
 	console.log(messages)
-
 	return (
 		<div className="messages">
 			{messages.map((m) => (
