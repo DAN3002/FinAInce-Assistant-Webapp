@@ -19,13 +19,13 @@ const Message = ({ message, isBot }) => {
 			className={`message ${isOwner && "owner"}`}
 		>
 			<div className="messageInfo">
+				<span>{message.senderUsername}</span>
 				<img
 					src={
 						(!isOwner && isBot) ? BOT_DATA.photoURL : USER_AVA
 					}
 					alt=""
 				/>
-				{/* <span>just now</span> */}
 			</div>
 			<div className="messageContent">
 				<p>{message.text}</p>

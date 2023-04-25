@@ -50,6 +50,7 @@ const Register = () => {
 				text: 'Welcome to the Chat!',
 				timestamp: new Date().getTime(),
 				sender: BOT_DATA.uid,
+				senderUsername: 'Chat Bot',
 			});
 
 

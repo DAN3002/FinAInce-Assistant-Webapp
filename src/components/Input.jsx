@@ -37,6 +37,7 @@ const Input = () => {
 						const message = {
 							img: downloadURL,
 							sender: currentUser.uid,
+							senderUsername: currentUser.username,
 							timestamp: Timestamp.now(),
 						};
 						ChatRooms.sendMessage(data.roomId, message);
@@ -47,11 +48,11 @@ const Input = () => {
 			const message = {
 				text,
 				sender: currentUser.uid,
+				senderUsername: currentUser.username,
 				timestamp: Timestamp.now(),
 			};
 			ChatRooms.sendMessage(data.roomId, message);
 		}
-
 
 		setText("");
 		setImg(null);
