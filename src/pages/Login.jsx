@@ -21,13 +21,17 @@ const Login = () => {
 			const currentUser = await Users.getUserById(user.user.uid);
 			const { username } = currentUser;
 
-			// const bankingTokenRes = await bankingAPI.login({
-			// 	username: username,
-			// 	password: password,
-			// });
-
-			// const token = bankingTokenRes.data.token;
-			// localStorage.setItem("Banking_token", token);
+			try {
+				const bankingTokenRes = await bankingAPI.login({
+					username: username,
+					password: password,
+				});
+	
+				const token = bankingTokenRes.data.token;
+				localStorage.setItem("Banking_token", token);
+			} catch(e) {
+				console.log(e);
+			}
 			navigate("/")
 		} catch (err) {
 			console.log(err);
