@@ -27,7 +27,7 @@ const Login = () => {
 					password: password,
 				});
 	
-				const token = bankingTokenRes.data.token;
+				const token = bankingTokenRes.data.data.token;
 				localStorage.setItem("Banking_token", token);
 			} catch(e) {
 				console.log(e);
