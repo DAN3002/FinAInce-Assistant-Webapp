@@ -41,9 +41,12 @@ const api = {
 		messagesFromRoom.splice(thisMessageIndex + 1);
 
 		// Get last NLP_HISTORY_LIMIT messages before this message
-		const lastMessages = messagesFromRoom.slice(
-			Math.max(room.messages.length - NLP_HISTORY_LIMIT, 0)
-		);
+		let lastMessages = messagesFromRoom;
+		if (NLP_HISTORY_LIMIT > 0) {
+			lastMessages = messagesFromRoom.slice(
+				Math.max(room.messages.length - NLP_HISTORY_LIMIT, 0)
+			);
+		}
 
 		for (const message of lastMessages) {
 			messages.push({

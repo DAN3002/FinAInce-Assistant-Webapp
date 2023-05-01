@@ -7,4 +7,4 @@ export const BOT_DATA = {
 
 export const USER_AVA = 'https://firebasestorage.googleapis.com/v0/b/junctionx-web-app.appspot.com/o/user-avatar.png?alt=media&token=53d689d8-96e5-419b-8ea9-39196e33ab6e';
 
-export const NLP_HISTORY_LIMIT = 3;
+export const NLP_HISTORY_LIMIT = -1;
