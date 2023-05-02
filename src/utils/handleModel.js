@@ -5,6 +5,7 @@ import {
 	createChatGroup,
 	noBotAction,
 	transferMoney,
+	askAssistant,
 } from '../botAction';
 
 export default async function handleModel(roomId, message, currentUser) {
@@ -45,6 +46,9 @@ export default async function handleModel(roomId, message, currentUser) {
 			break;
 		case 'CREATE_CHAT_GROUP':
 			await createChatGroup(params);
+			break;
+		case 'ASK_ASSISTANT':
+			await askAssistant(params);
 			break;
 		case 'NO_BOT_ACTION':
 			await noBotAction(params);
