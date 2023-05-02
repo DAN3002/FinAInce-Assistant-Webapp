@@ -16,7 +16,8 @@ const API_URLS = {
 
 
 const axiosInstance = axios.create({
-  baseURL: "https://ai.bohocdi.works/api",
+  // baseURL: "https://ai.bohocdi.works/api",
+  baseURL: "https://ai-bhdl.jsclub.me/api",
   // baseURL: 'http://x.jsclub.me:5000/api',
 });
 
@@ -47,7 +48,7 @@ const api = {
     for (const message of lastMessages) {
       messages.push({
         content: message.text,
-        role: message.sender === BOT_DATA.uid ?
+        user: message.sender === BOT_DATA.uid ?
           "Assistant" :
           "User",
       });
