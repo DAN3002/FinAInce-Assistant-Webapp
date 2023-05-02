@@ -15,7 +15,7 @@ export default async function handleModel(roomId, message, currentUser) {
 	}
 	const modelRes = await NlpAPI.analysChat(message, roomId);
 	const {
-		intent,
+		action,
 		// message: AIMessgae
 	} = modelRes;
 
@@ -37,7 +37,7 @@ export default async function handleModel(roomId, message, currentUser) {
 		currentUser,
 	}
 
-	switch (intent) {
+	switch (action.command) {
 		case 'TRANSFER':
 			await transferMoney(params);
 			break;

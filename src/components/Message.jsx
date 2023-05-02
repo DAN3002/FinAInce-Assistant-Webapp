@@ -18,7 +18,7 @@ const Message = ({ message, isBot, hideAvatar, showName, triggerSidebar }) => {
 	const ref = useRef();
 
 	const transactionId = message.transactionId;
-	
+
 	useEffect(() => {
 		const fn = async () => {
 			triggerSidebar();
@@ -27,14 +27,17 @@ const Message = ({ message, isBot, hideAvatar, showName, triggerSidebar }) => {
 		};
 		fn();
 	}, [message]);
-	
+
 	useEffect(() => {
 		const getChats = () => {
-			const unsub = onSnapshot(doc(db, "transaction", transactionId), (doc) => {
-				const transctionData = doc.data();
-				// console.log(transctionData);
-				setTransaction(transctionData);
-			});
+			const unsub = onSnapshot(
+				doc(db, 'transaction', transactionId),
+				(doc) => {
+					const transctionData = doc.data();
+					// console.log(transctionData);
+					setTransaction(transctionData);
+				}
+			);
 
 			return () => {
 				unsub();
@@ -156,39 +159,52 @@ const Message = ({ message, isBot, hideAvatar, showName, triggerSidebar }) => {
 					</span>
 				)}
 				{message.text && (
-					<div
-						className={`${
-							isOwner ? 'bg-primary-500 text-white' : 'bg-neutral-200'
-						} px-3 py-2 rounded-3xl gap-2 w-fit max-w-full break-words`}
-						style={{
-							inlineSize: 'auto',
-						}}>
-						{message.text}
-
-						{message.transactionId && transaction && transaction.status === "pending" && (
-							<div
-								key={message.transactionId}
-								className='flex justify-center around pt-5'>
-								<div
-									className='flex justify-around gap-2'
-									style={{
-										maxWidth: '100%',
-										minWidth: '50%',
-									}}>
-									<button
-										className='px-5 py-1 bg-primary-500 text-white rounded-lg'
-										onClick={handleConfirm}>
-										<span className='font-semibold'>Confirm</span>
-									</button>
-									<button
-										className='px-5 py-1 bg-white border-2 text-primary-500 border-primary-500 rounded-lg'
-										onClick={handleCancel}>
-										<span className='font-semibold'>Cancel</span>
-									</button>
-								</div>
-							</div>
-						)}
-					</div>
+					<>
+						<div
+							className={`${
+								isOwner ? 'bg-primary-500 text-white' : 'bg-neutral-200'
+							} px-3 py-2 rounded-3xl gap-2 w-fit max-w-full break-words`}
+							style={{
+								inlineSize: 'auto',
+							}}>
+							{message.text}
+							{message.transactionId &&
+								transaction &&
+								transaction.status === 'pending' && (
+									<div
+										key={message.transactionId}
+										className='flex justify-center around pt-5'>
+										<div
+											className='flex justify-around gap-2'
+											style={{
+												maxWidth: '100%',
+												minWidth: '50%',
+											}}>
+											<button
+												className='px-5 py-1 bg-primary-500 text-white rounded-lg'
+												onClick={handleConfirm}>
+												<span className='font-semibold'>
+													Confirm
+												</span>
+											</button>
+											<button
+												className='px-5 py-1 bg-white border-2 text-primary-500 border-primary-500 rounded-lg'
+												onClick={handleCancel}>
+												<span className='font-semibold'>
+													Cancel
+												</span>
+											</button>
+										</div>
+									</div>
+								)}
+						</div>
+						{/* <button class='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'>
+							Help me create a monthly budget plan
+						</button>
+						<button class='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'>
+							Help me calculate my target saving plan
+						</button> */}
+					</>
 				)}
 				{message.img && (
 					<img src={message.img} className='w-1/2 rounded-3xl' alt='' />

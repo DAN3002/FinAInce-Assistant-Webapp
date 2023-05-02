@@ -102,7 +102,7 @@ const ChatRooms = {
 		
 		const data = docSnap.data();
 		data.id = roomId;
-		return docSnap.data();
+		return data;
 	},
 };
 
