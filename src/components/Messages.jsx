@@ -6,45 +6,45 @@ import { db } from "../firebase";
 import Message from "./Message";
 
 const Messages = ({ triggerSidebar }) => {
-  const [messages, setMessages] = useState([]);
-  const { data } = useContext(ChatContext);
+	const [messages, setMessages] = useState([]);
+	const { data } = useContext(ChatContext);
 
-  // console.log(data.roomId);
+	// console.log(data.roomId);
 
-  useEffect(() => {
-    if (data.roomId) {
-      const unSub = onSnapshot(doc(db, "chatRooms", data.roomId), (doc) => {
-        doc.exists() && setMessages(doc.data().messages);
-      });
+	useEffect(() => {
+		if (data.roomId) {
+			const unSub = onSnapshot(doc(db, "chatRooms", data.roomId), (doc) => {
+				doc.exists() && setMessages(doc.data().messages);
+			});
 
-      return () => {
-        unSub();
-      };
-    }
-  }, [data.roomId]);
+			return () => {
+				unSub();
+			};
+		}
+	}, [data.roomId]);
 
-  // console.log(messages);
-  return (
-    <div
-      className="messages overflow-scroll"
-      style={{
-        height: "calc(100% - 110px)",
-      }}
-    >
-      {messages.map((m, i) => (
-        <Message
-          triggerSidebar={triggerSidebar}
-          isBot={m.sender === BOT_DATA.uid}
-          message={m}
-          key={m.id}
-          hideAvatar={
-            i + 1 < messages.length && messages[i + 1].sender === m.sender
-          }
-          showName={i > 0 && messages[i - 1].sender !== m.sender}
-        />
-      ))}
-    </div>
-  );
+	// console.log(messages);
+	return (
+		<div
+			className="messages overflow-scroll"
+			style={{
+				height: "calc(100% - 110px)",
+			}}
+		>
+			{messages.map((m, i) => (
+				<Message
+					triggerSidebar={triggerSidebar}
+					isBot={m.sender === BOT_DATA.uid}
+					message={m}
+					key={m.id}
+					hideAvatar={
+						i + 1 < messages.length && messages[i + 1].sender === m.sender
+					}
+					showName={i > 0 && messages[i - 1].sender !== m.sender}
+				/>
+			))}
+		</div>
+	);
 };
 
 export default Messages;
