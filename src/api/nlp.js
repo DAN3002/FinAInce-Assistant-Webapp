@@ -30,6 +30,12 @@ const api = {
 		const messages = [];
 		const room = await ChatRooms.getRoomById(roomId);
 
+		// map userId => username
+		const userIdToUsername = {};
+		for (const user of room.users) {
+			userIdToUsername[user.id] = user.username;
+		}
+
 		const messagesFromRoom = Array.from(room.messages);
 
 		// filter to make sure that the chatMessage is end of the conversation
@@ -53,7 +59,7 @@ const api = {
 				content: message.text,
 				user: message.sender === BOT_DATA.uid ?
 					"Assistant" :
-					"User",
+					userIdToUsername[message.sender],
 			});
 		}
 
