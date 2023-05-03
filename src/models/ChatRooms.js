@@ -90,10 +90,10 @@ const ChatRooms = {
 				lastMessage: messageData,
 			});
 
-			return id;
+			return messageData;
 		}
 
-		return messageData;
+		return null;
 	},
 
 	async getRoomById(roomId) {
