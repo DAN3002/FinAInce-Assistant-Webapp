@@ -35,29 +35,30 @@ const api = {
 		}
 
 		const messagesFromRoom = Array.from(room.messages);
-
-		// filter to make sure that the chatMessage is end of the conversation
-		const thisMessageIndex = messagesFromRoom.findIndex(
-			(message) => message.id === chatMessage.id
-		);
-
-		// splice to this message index
-		messagesFromRoom.splice(thisMessageIndex + 1);
-
-		// Get last NLP_HISTORY_LIMIT messages before this message
 		let lastMessages = messagesFromRoom;
-		if (NLP_HISTORY_LIMIT > 0) {
-			lastMessages = messagesFromRoom.slice(
-				Math.max(room.messages.length - NLP_HISTORY_LIMIT, 0)
+
+		if (chatMessage) {
+			// filter to make sure that the chatMessage is end of the conversation
+			const thisMessageIndex = messagesFromRoom.findIndex(
+				(message) => message.id === chatMessage.id
 			);
+
+			// splice to this message index
+			messagesFromRoom.splice(thisMessageIndex + 1);
+
+			// Get last NLP_HISTORY_LIMIT messages before this message
+			if (NLP_HISTORY_LIMIT > 0) {
+				lastMessages = messagesFromRoom.slice(
+					Math.max(room.messages.length - NLP_HISTORY_LIMIT, 0)
+				);
+			}
 		}
 
 		for (const message of lastMessages) {
 			messages.push({
 				content: message.text,
 				user: message.sender === BOT_DATA.uid ?
-					"Assistant" :
-					userIdToUsername[message.sender],
+					"Assistant" : userIdToUsername[message.sender],
 			});
 		}
 

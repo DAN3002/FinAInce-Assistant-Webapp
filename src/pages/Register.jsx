@@ -9,6 +9,7 @@ import { BOT_DATA } from "../config";
 import ChatRooms from "../models/ChatRooms";
 import Users from "../models/Users";
 import bankingAPI from "../api/banking";
+import handleModel from "../utils/handleModel";
 
 const Register = () => {
 	const [err, setErr] = useState(false);
@@ -42,13 +43,13 @@ const Register = () => {
 			const newBotRoom = await ChatRooms.newChatRoom([user, BOT_DATA], true);
 
 			// Send welcome message by bot
-			ChatRooms.sendMessage(newBotRoom.id, {
-				text: "Welcome to the Chat!",
-				timestamp: new Date().getTime(),
-				sender: BOT_DATA.uid,
-				senderUsername: "Chat Bot",
-			});
-
+			// ChatRooms.sendMessage(newBotRoom.id, {
+			// 	text: "Welcome to the Chat!",
+			// 	timestamp: new Date().getTime(),
+			// 	sender: BOT_DATA.uid,
+			// 	senderUsername: "Chat Bot",
+			// });
+			handleModel(newBotRoom.id, null, user);
 			navigate("/");
 		} catch (err) {
 			setErr(true);

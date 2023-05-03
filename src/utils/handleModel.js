@@ -9,10 +9,6 @@ import {
 } from '../botAction';
 
 export default async function handleModel(roomId, message, currentUser) {
-	console.log("=== Handle Model ===");
-	console.log(roomId);
-	console.log(message);
-	console.log(currentUser);
 	const chatRoom = await ChatRooms.getRoomById(roomId);
 	if (!chatRoom || !chatRoom.isBot) {
 		return;
