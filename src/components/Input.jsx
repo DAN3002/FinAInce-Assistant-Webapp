@@ -53,9 +53,8 @@ const Input = () => {
 				timestamp: Timestamp.now(),
 				senderUsername: currentUser.username,
 			};
-			const id = await ChatRooms.sendMessage(data.roomId, message);
-			message.id = id;
-			handleModel(data.roomId, message, currentUser);
+			const messageData = await ChatRooms.sendMessage(data.roomId, message);
+			handleModel(data.roomId, messageData, currentUser);
 		}
 
 		setText("");

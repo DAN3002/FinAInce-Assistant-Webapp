@@ -67,18 +67,18 @@ const api = {
 		// const chaGPT = await generatePrompt(messages);
 		// return extractPromptData(chaGPT);
 
-		// const response = await axiosInstance.post(API_URLS.chat, body, {
-		// 	withCredentials: false,
-		// });
-		// return response.data;
-		return     {
-			'action': {
-				'command': 'ASK_ASSISTANT',
-				'params': {},
-			},
-			'message': {'role': 'assistant', 'content': 'Sure, I can help you with that. What do you want to ask?'},
-			'suggestions': ['Help me create a monthly budget plan', 'Help me calculate my target saving plan', 'Help me detect if a loan is usury or not', 'Help me invest my money', 'Help me pay off my debt']
-		}
+		const response = await axiosInstance.post(API_URLS.chat, body, {
+			withCredentials: false,
+		});
+		return response.data;
+		// return     {
+		// 	'action': {
+		// 		'command': 'ASK_ASSISTANT',
+		// 		'params': {},
+		// 	},
+		// 	'message': {'role': 'assistant', 'content': 'Sure, I can help you with that. What do you want to ask?'},
+		// 	'suggestions': ['Help me create a monthly budget plan', 'Help me calculate my target saving plan', 'Help me detect if a loan is usury or not', 'Help me invest my money', 'Help me pay off my debt']
+		// }
 	},
 }
 

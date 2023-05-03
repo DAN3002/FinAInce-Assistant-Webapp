@@ -93,7 +93,7 @@ const ChatRooms = {
 			return id;
 		}
 
-		return id;
+		return messageData;
 	},
 
 	async getRoomById(roomId) {

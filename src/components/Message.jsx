@@ -8,8 +8,10 @@ import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import Avatar from '../utils/Avatar';
 import bankingAPI from '../api/banking';
+import ChatRooms from "../models/ChatRooms";
+import handleModel from "../utils/handleModel";
 
-const Message = ({ message, isBot, hideAvatar, showName, triggerSidebar }) => {
+const Message = ({ message, isBot, hideAvatar, showName, triggerSidebar, roomId }) => {
 	const [show, setShow] = useState(true);
 	const [transaction, setTransaction] = useState(null);
 	const { currentUser } = useContext(AuthContext);
@@ -34,7 +36,6 @@ const Message = ({ message, isBot, hideAvatar, showName, triggerSidebar }) => {
 				doc(db, 'transaction', transactionId),
 				(doc) => {
 					const transctionData = doc.data();
-					// console.log(transctionData);
 					setTransaction(transctionData);
 				}
 			);
@@ -122,6 +123,17 @@ const Message = ({ message, isBot, hideAvatar, showName, triggerSidebar }) => {
 		setShow(false);
 	};
 
+	const handleClickSuggestion = async (choice) => {
+		const messageData = await ChatRooms.sendMessage(roomId, {
+			text: choice,
+			sender: currentUser.uid,
+			senderUsername: currentUser.username,
+			timestamp: new Date().toISOString(),
+		});
+
+		handleModel(roomId, messageData, currentUser);
+	}
+
 	// console.log(BOT_DATA);
 	return (
 		<div
@@ -203,7 +215,9 @@ const Message = ({ message, isBot, hideAvatar, showName, triggerSidebar }) => {
 								message.suggestion.choices.map((suggestion) => (
 									<button
 										key={suggestion}
-										className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'>
+										className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'
+										onClick={() => handleClickSuggestion(suggestion)}
+									>
 											{suggestion}
 									</button>
 								))

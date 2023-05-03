@@ -37,6 +37,7 @@ const Messages = ({ triggerSidebar }) => {
 					isBot={m.sender === BOT_DATA.uid}
 					message={m}
 					key={m.id}
+					roomId={data.roomId}
 					hideAvatar={
 						i + 1 < messages.length && messages[i + 1].sender === m.sender
 					}
