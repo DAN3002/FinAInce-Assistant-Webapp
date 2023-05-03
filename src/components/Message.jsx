@@ -13,6 +13,7 @@ import Avatar from '../utils/Avatar';
 import bankingAPI from '../api/banking';
 import ChatRooms from "../models/ChatRooms";
 import handleModel from "../utils/handleModel";
+import changeMessageWidth from "../utils/changeMessageWidth";
 
 const Message = ({ message, isBot, hideAvatar, showName, roomId }) => {
 	const [transaction, setTransaction] = useState(null);
@@ -27,6 +28,7 @@ const Message = ({ message, isBot, hideAvatar, showName, roomId }) => {
 		const fn = async () => {
 			// await new Promise((r) => setTimeout(r, 300));
 			ref.current?.scrollIntoView({ behavior: 'smooth' });
+			changeMessageWidth();
 		};
 		fn();
 	}, [message]);
