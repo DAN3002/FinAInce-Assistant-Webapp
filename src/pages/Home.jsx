@@ -7,7 +7,6 @@ const Home = () => {
 	let [sidebarOpen, setSidebarOpen] = useState(true);
 
 	const triggerSidebar = () => {
-		console.log("trigger");
 		setSidebarOpen(!sidebarOpen);
 	};
 

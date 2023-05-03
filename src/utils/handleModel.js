@@ -19,8 +19,8 @@ export default async function handleModel(roomId, message, currentUser) {
 		// message: AIMessgae
 	} = modelRes;
 
-	console.log("=== Model Response ===");
-	console.log(modelRes);
+	// console.log("=== Model Response ===");
+	// console.log(modelRes);
 
 	// if (AIMessgae.content) {
 	// 	await ChatRooms.sendMessage(roomId, {

@@ -1,5 +1,4 @@
 export default function extractPrompt(text) {
-	console.log(text);
 	// const text = "TRANSFER_MONEY[from=you,to=Minh,amount=30,msg=Trả tiền ăn sáng]";
 	const pattern = /(\w+)\[(\w+)=([\w\s]+),(\w+)=([\w\s]+),(\w+)=([\w\s]+),?(\w*)=?(.*)?\]/;
 
