@@ -8,7 +8,7 @@ import { ChatContext } from "../context/ChatContext";
 
 const Chat = ({ sidebarOpen, triggerSidebar }) => {
 	const { data } = useContext(ChatContext);
-	const { roomName } = data;
+	const { roomName, roomId } = data;
 
 	return (
 		<div
@@ -20,6 +20,7 @@ const Chat = ({ sidebarOpen, triggerSidebar }) => {
 				className="flex items-center justify-between shadow-sm"
 			>
 				<b className=" text-primary-500 pl-5">{roomName}</b>
+				<p style={{ display: "none" }} className="pr-5">{roomId}</p>
 				<div className="flex gap-2">
 					{/* <img src={Cam} alt="" />
 					<img src={Add} alt="" />
