@@ -5,7 +5,7 @@ const changeMessageWidth = () => {
 	// for each table in the page and set parrent div width to width of tbody of table
 	tables.forEach((table) => {
 		const tableBody = table.querySelector('tbody');
-		const tableBodyWidth = tableBody.offsetWidth + 40;
+		const tableBodyWidth = tableBody.offsetWidth + 35;
 		const tableParent = table.parentElement;
 
 		tableParent.style.width = `${tableBodyWidth}px`;

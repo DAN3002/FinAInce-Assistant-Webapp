@@ -18,6 +18,7 @@ import {
 	v4 as uuidv4
 } from "uuid";
 import Users from "./Users";
+import processMessage from "../utils/processMessage";
 
 const ChatRooms = {
 	ref: collection(db, "chatRooms"),
@@ -82,6 +83,8 @@ const ChatRooms = {
 
 		const id = uuidv4();
 		messageData.id = id;
+
+		messageData.text = processMessage(messageData.text);
 
 		if (roomDoc.exists()) {
 			// push to messages array
