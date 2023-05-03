@@ -130,8 +130,8 @@ const Message = ({ message, isBot, hideAvatar, showName, triggerSidebar, roomId 
 			senderUsername: currentUser.username,
 			timestamp: new Date().toISOString(),
 		});
-
-		handleModel(roomId, messageData, currentUser);
+		// await ChatRooms.hideSuggestions(roomId);
+		await handleModel(roomId, messageData, currentUser);
 	}
 
 	// console.log(BOT_DATA);

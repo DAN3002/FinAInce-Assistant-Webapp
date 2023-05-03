@@ -104,6 +104,14 @@ const ChatRooms = {
 		data.id = roomId;
 		return data;
 	},
+
+	hideSuggestions(roomId) {
+		console.log("hideSuggestions", roomId);
+		const ref = doc(db, "chatRooms", roomId);
+		return updateDoc(ref, {
+			'suggestion.clicked': true,
+		});
+	},
 };
 
 export default ChatRooms;
