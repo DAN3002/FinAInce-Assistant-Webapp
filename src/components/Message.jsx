@@ -198,12 +198,17 @@ const Message = ({ message, isBot, hideAvatar, showName, triggerSidebar }) => {
 									</div>
 								)}
 						</div>
-						{/* <button class='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'>
-							Help me create a monthly budget plan
-						</button>
-						<button class='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'>
-							Help me calculate my target saving plan
-						</button> */}
+						<>
+							{message.suggestions && (
+								message.suggestions.map((suggestion) => (
+									<button
+										key={suggestion}
+										className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'>
+											{suggestion}
+									</button>
+								))
+							)}
+						</>
 					</>
 				)}
 				{message.img && (
