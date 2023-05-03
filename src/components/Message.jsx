@@ -2,6 +2,9 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { onSnapshot, collection } from 'firebase/firestore';
 import { AuthContext } from '../context/AuthContext';
 import Swal from 'sweetalert2';
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+
 import { BOT_DATA, USER_AVA } from '../config';
 import axios from 'axios';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
@@ -125,6 +128,8 @@ const Message = ({ message, isBot, hideAvatar, showName, roomId }) => {
 		// await ChatRooms.hideSuggestions(roomId);
 		await handleModel(roomId, messageData, currentUser);
 	}
+	message.text = message.text?.replace(/\\n/g, '\n');
+	message.text = message.text.trim();
 
 	// console.log(BOT_DATA);
 	return (
@@ -171,7 +176,11 @@ const Message = ({ message, isBot, hideAvatar, showName, roomId }) => {
 							style={{
 								inlineSize: 'auto',
 							}}>
-							{message.text}
+							<ReactMarkdown
+								children={message.text}
+								remarkPlugins={[remarkGfm]}
+							/>
+							{/* {message.text} */}
 							{message.transactionId &&
 								transaction &&
 								transaction.status === 'pending' && (
