@@ -8,16 +8,17 @@ const checkBalance = async ({
 	room, modelRes, currentUser
 }) => {
 	const {
-		action
+		action,
+		message,
 	} = modelRes;
 
 	let users = [
 		currentUser.username,
 	]
-	users = users.concat(action.params[0]);
+	users = users.concat(action.params.members);
 	await createGroup(users);
 	
-	const botText = `
+	const botText = message && message.content ? message.content : `
 		Group created!
 	`
 
