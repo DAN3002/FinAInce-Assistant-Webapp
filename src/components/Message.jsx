@@ -199,8 +199,8 @@ const Message = ({ message, isBot, hideAvatar, showName, triggerSidebar }) => {
 								)}
 						</div>
 						<>
-							{message.suggestions && (
-								message.suggestions.map((suggestion) => (
+							{(message.suggestion && !message.suggestion.clicked) && (
+								message.suggestion.choices.map((suggestion) => (
 									<button
 										key={suggestion}
 										className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'>

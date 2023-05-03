@@ -13,13 +13,21 @@ const askAssistant = async ({
 		${message}
 	`;
 
-	await ChatRooms.sendMessage(room.id, {
+	const messageData = {
 		text: botText,
 		sender: BOT_DATA.uid,
 		senderUsername: BOT_DATA.username,
 		createdAt: new Date(),
-		suggestions,
-	});
+	}
+
+	if (suggestions.length > 0) {
+		messageData.suggestion = {
+			choices: suggestions,
+			clicked: false,
+		};
+	}
+
+	await ChatRooms.sendMessage(room.id, messageData);
 }
 
 export default askAssistant;
