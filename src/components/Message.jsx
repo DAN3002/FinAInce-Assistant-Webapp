@@ -11,7 +11,7 @@ import bankingAPI from '../api/banking';
 import ChatRooms from "../models/ChatRooms";
 import handleModel from "../utils/handleModel";
 
-const Message = ({ message, isBot, hideAvatar, showName, triggerSidebar, roomId }) => {
+const Message = ({ message, isBot, hideAvatar, showName, roomId }) => {
 	const [show, setShow] = useState(true);
 	const [transaction, setTransaction] = useState(null);
 	const { currentUser } = useContext(AuthContext);
@@ -23,7 +23,6 @@ const Message = ({ message, isBot, hideAvatar, showName, triggerSidebar, roomId 
 
 	useEffect(() => {
 		const fn = async () => {
-			triggerSidebar();
 			// await new Promise((r) => setTimeout(r, 300));
 			ref.current?.scrollIntoView({ behavior: 'smooth' });
 		};

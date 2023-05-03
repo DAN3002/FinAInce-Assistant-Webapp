@@ -5,12 +5,14 @@ import Chats from "./Chats";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 
-const Sidebar = () => {
+const Sidebar = ({triggerSidebar}) => {
 	return (
 		<div className="sidebar h-full flex flex-col bg-white shadow-sm flex-0 relative gap-1">
 			<Navbar />
 			<Search />
-			<Chats />
+			<Chats
+				triggerSidebar={triggerSidebar}
+			/>
 			<div
 				className="mt-auto flex justify-center items-center"
 				style={{

@@ -5,7 +5,7 @@ import { ChatContext } from "../context/ChatContext";
 import { db } from "../firebase";
 import Message from "./Message";
 
-const Messages = ({ triggerSidebar }) => {
+const Messages = () => {
 	const [messages, setMessages] = useState([]);
 	const { data } = useContext(ChatContext);
 

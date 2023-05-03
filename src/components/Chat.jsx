@@ -6,7 +6,7 @@ import Messages from "./Messages";
 import Input from "./Input";
 import { ChatContext } from "../context/ChatContext";
 
-const Chat = ({ sidebarOpen, triggerSidebar }) => {
+const Chat = ({ sidebarOpen }) => {
 	const { data } = useContext(ChatContext);
 	const { roomName, roomId } = data;
 
@@ -27,7 +27,7 @@ const Chat = ({ sidebarOpen, triggerSidebar }) => {
 					<img src={More} alt="" /> */}
 				</div>
 			</div>
-			<Messages triggerSidebar={triggerSidebar} />
+			<Messages />
 			<Input />
 		</div>
 	);

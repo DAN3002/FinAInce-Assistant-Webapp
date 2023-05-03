@@ -6,7 +6,7 @@ import { db } from '../firebase';
 import { BOT_DATA, USER_AVA } from '../config';
 import Avatar from '../utils/Avatar';
 
-const Chats = () => {
+const Chats = ({triggerSidebar}) => {
 	const [rooms, setRooms] = useState([]);
 
 	const { currentUser } = useContext(AuthContext);
@@ -74,6 +74,7 @@ const Chats = () => {
 
 	const handleSelect = (roomId, roomName) => {
 		dispatch({ type: 'CHANGE_USER', payload: { roomId, roomName } });
+		triggerSidebar();
 	};
   // console.log(rooms);
 

@@ -19,7 +19,9 @@ const Home = () => {
 					}`}
 					// style={{ maxWidth: "45%" }}
 				>
-					<Sidebar />
+					<Sidebar
+						triggerSidebar={triggerSidebar}
+					/>
 					<div
 						className="absolute top-0 bg-primary-500"
 						style={{
@@ -36,7 +38,7 @@ const Home = () => {
 						</div>
 					</div>
 				</div>
-				<Chat sidebarOpen={sidebarOpen} triggerSidebar={triggerSidebar} />
+				<Chat sidebarOpen={sidebarOpen} />
 			</div>
 		</div>
 	);
