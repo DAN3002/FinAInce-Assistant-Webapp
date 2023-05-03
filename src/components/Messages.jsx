@@ -33,7 +33,6 @@ const Messages = () => {
 		>
 			{messages.map((m, i) => (
 				<Message
-					triggerSidebar={triggerSidebar}
 					isBot={m.sender === BOT_DATA.uid}
 					message={m}
 					key={m.id}

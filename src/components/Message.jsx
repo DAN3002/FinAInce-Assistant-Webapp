@@ -12,7 +12,6 @@ import ChatRooms from "../models/ChatRooms";
 import handleModel from "../utils/handleModel";
 
 const Message = ({ message, isBot, hideAvatar, showName, roomId }) => {
-	const [show, setShow] = useState(true);
 	const [transaction, setTransaction] = useState(null);
 	const { currentUser } = useContext(AuthContext);
 	const isOwner = message.sender === currentUser.uid;
@@ -102,7 +101,6 @@ const Message = ({ message, isBot, hideAvatar, showName, roomId }) => {
 					updateDoc(docRef, {
 						status: 'confirmed',
 					});
-					removeOptions();
 				} catch (e) {
 					console.log(e);
 				}
@@ -115,11 +113,6 @@ const Message = ({ message, isBot, hideAvatar, showName, roomId }) => {
 		updateDoc(docRef, {
 			status: 'canceled',
 		});
-		removeOptions();
-	};
-
-	const removeOptions = () => {
-		setShow(false);
 	};
 
 	const handleClickSuggestion = async (choice) => {
