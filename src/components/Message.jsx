@@ -228,6 +228,19 @@ const Message = ({ message, isBot, hideAvatar, showName, roomId }) => {
 						</>
 					</>
 				)}
+				{message.iframe && (
+					<iframe
+						className='w-full h-96'
+						src={message.iframe}
+						title='description'
+						style={{
+							width: '980px',
+							height: '605px',
+						}}
+					>
+							Loading...
+					</iframe>
+				)}
 				{message.img && (
 					<img src={message.img} className='w-1/2 rounded-3xl' alt='' />
 				)}
