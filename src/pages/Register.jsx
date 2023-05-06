@@ -49,7 +49,7 @@ const Register = () => {
 			// 	sender: BOT_DATA.uid,
 			// 	senderUsername: "Chat Bot",
 			// });
-			handleModel(newBotRoom.id, null, user);
+			await handleModel(newBotRoom.id, null, user);
 			navigate("/");
 		} catch (err) {
 			setErr(true);

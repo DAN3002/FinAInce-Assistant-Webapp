@@ -77,7 +77,6 @@ const Chats = ({triggerSidebar}) => {
 		dispatch({ type: 'CHANGE_USER', payload: { roomId, roomName } });
 		triggerSidebar();
 	};
-//   console.log(rooms);
 
 	return (
 		<div className='chats overflow-scroll h-auto'>
