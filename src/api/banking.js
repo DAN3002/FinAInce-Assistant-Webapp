@@ -4,6 +4,8 @@ const API_URLS = {
 	login: '/user/login',
 	transfer: '/balance/transfer',
 	balance: '/user/self',
+	otp: 'transaction/otp',
+	confirm: 'transaction/confirm',
 };
 
 const axiosInstance = axios.create({
@@ -30,7 +32,27 @@ const api = {
 				Authorization: `Bearer ${localStorage.getItem('Banking_token')}`,
 			},
 		});
-	}
+	},
+	getOTP: () => {
+		console.log(localStorage.getItem('Banking_token'));
+		return axiosInstance.post(API_URLS.otp, {}, {
+			headers: {
+				Authorization: `Bearer ${localStorage.getItem('Banking_token')}`,
+			},
+		});
+	},
+	confirmTransfer: (tid, otp) => {
+		return axiosInstance.post(API_URLS.confirm, {}, {
+			tid: tid,
+			otp: otp,
+		}, {
+			headers: {
+				Authorization: `Bearer ${localStorage.getItem(
+						'Banking_token'
+					)}`,
+			},
+		});
+	},
 }
 
-export default api ;
+export default api;

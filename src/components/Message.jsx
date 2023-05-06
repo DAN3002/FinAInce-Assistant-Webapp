@@ -51,16 +51,9 @@ const Message = ({ message, isBot, hideAvatar, showName, roomId }) => {
 		transactionId && getChats();
 	}, [transactionId]);
 
-	const handleConfirm = async () => {
-		const myOTP = await axios.post(
-			'https://be.bohocdi.works/api/transaction/otp',
-			{},
-			{
-				headers: {
-					Authorization: `Bearer ${localStorage.getItem('Banking_token')}`,
-				},
-			}
-		);
+	const handleConfirm = async (transactionData) => {
+		console.log(transactionData);
+		const myOTP = await bankingAPI.getOTP();
 		const { value: otp } = await Swal.fire({
 			title: 'Enter your OTP',
 			input: 'text',
@@ -73,32 +66,18 @@ const Message = ({ message, isBot, hideAvatar, showName, roomId }) => {
 				}
 			},
 		});
+
 		if (otp) {
 			const transaction = {
-				username: 'test9',
-				fullname: 'test9',
-				amount: 2000,
-				message: 'test',
+				username: transactionData.to,
+				// fullname: 'test9',
+				amount: transactionData.amount,
+				message: transactionData.message,
 			};
 			const transferRes = await bankingAPI.transfer(transaction);
-
 			const tid = transferRes?.data?.data?.tid;
 
-			const res = await axios.post(
-				'https://be.bohocdi.works/api/transaction/confirm',
-				{
-					tid: tid,
-					otp: otp,
-				},
-				{
-					headers: {
-						Authorization: `Bearer ${localStorage.getItem(
-							'Banking_token'
-						)}`,
-					},
-				}
-			);
-
+			await bankingAPI.confirmTransfer(tid, otp);
 			if (tid) {
 				try {
 					// set transaction status to comfirmed from firebase
@@ -197,7 +176,7 @@ const Message = ({ message, isBot, hideAvatar, showName, roomId }) => {
 											}}>
 											<button
 												className='px-5 py-1 bg-primary-500 text-white rounded-lg'
-												onClick={handleConfirm}>
+												onClick={() => handleConfirm(transaction)}>
 												<span className='font-semibold'>
 													Confirm
 												</span>

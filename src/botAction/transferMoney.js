@@ -3,6 +3,7 @@ import {
 } from "../config";
 import Transaction from "../models/Transaction";
 import ChatRooms from "../models/ChatRooms";
+import { parse } from "uuid";
 
 const transferMoney = async ({
 	room, modelRes, currentUser
@@ -19,8 +20,8 @@ const transferMoney = async ({
 		} = action.params;
 
 		const transaction = await Transaction.createNewTransaction({
-			amount,
 			msg,
+			amount: parseInt(amount),
 			to: receiver,
 			from: currentUser.username,
 			responseText: message.content,
