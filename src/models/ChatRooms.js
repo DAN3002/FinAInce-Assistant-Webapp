@@ -85,7 +85,7 @@ const ChatRooms = {
 		const id = uuidv4();
 		messageData.id = id;
 
-		messageData.text = processMessage(messageData.text);
+		messageData.text = processMessage(messageData.text || '');
 
 		if (roomDoc.exists()) {
 			// push to messages array

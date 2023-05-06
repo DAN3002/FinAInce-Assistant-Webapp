@@ -3,7 +3,8 @@ import axios from "axios";
 import ChatRooms from '../models/ChatRooms';
 import {
 	NLP_HISTORY_LIMIT,
-	BOT_DATA
+	BOT_DATA,
+	NLP_SERVER
 } from '../config';
 import {
 	generatePrompt
@@ -18,7 +19,7 @@ const API_URLS = {
 
 const axiosInstance = axios.create({
 	// baseURL: "https://ai.bohocdi.works/api",
-	baseURL: "https://ai-bhdl.jsclub.me/api",
+	baseURL: `${NLP_SERVER}/api`,
 	// baseURL: 'http://x.jsclub.me:5000/api',
 });
 
