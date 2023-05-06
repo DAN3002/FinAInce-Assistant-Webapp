@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import bankingAPI from "../api/banking";
 import Users from "../models/Users";
+import { ChatContext } from "../context/ChatContext";
 
 const Login = () => {
 	const [err, setErr] = useState(false);
 	const navigate = useNavigate();
+	const { data, dispatch } = useContext(ChatContext);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -32,6 +34,10 @@ const Login = () => {
 			} catch (e) {
 				console.log(e);
 			}
+			dispatch({
+				type: "CHANGE_USER",
+				payload: {}
+			});
 			navigate("/");
 		} catch (err) {
 			console.log(err);
