@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - REACT_APP_FIREBASE_KEY=${REACT_APP_FIREBASE_KEY}
+        - REACT_APP_CHATGPT_KEY=${REACT_APP_CHATGPT_KEY}
+    image: chat-webapp
+    ports:
+      - "8080:80"
