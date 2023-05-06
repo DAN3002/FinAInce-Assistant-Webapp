@@ -7,7 +7,7 @@ const API_URLS = {
 };
 
 const axiosInstance = axios.create({
-	baseURL: 'https://be.bohocdi.works/api',
+	baseURL: 'https://be-bhdl.jsclub.me/api',
 });
 
 const api = {

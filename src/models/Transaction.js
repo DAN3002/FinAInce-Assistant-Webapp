@@ -15,11 +15,12 @@ import {
 } from "../firebase";
 
 const Transaction = {
-	createNewTransaction: ({amount, msg='', from, to}) => {
+	createNewTransaction: ({amount, msg='', from, to, responseText}) => {
 		const transctionData = {
 			amount,
 			from,
 			to,
+			responseText,
 			message: msg,
 			status: 'pending',
 			timestamp: serverTimestamp(),

@@ -8,25 +8,26 @@ const transferMoney = async ({
 	room, modelRes, currentUser
 }) => {
 	const {
-		action
+		action, message
 	} = modelRes;
 
 	if (action.params) {
 		const {
 			amount,
-			to,
+			receiver,
 			msg
 		} = action.params;
 
 		const transaction = await Transaction.createNewTransaction({
 			amount,
 			msg,
-			to,
-			from: currentUser.username
+			to: receiver,
+			from: currentUser.username,
+			responseText: message.content,
 		});
 
 		const botText = `
-			Do you want to transfer ${amount} to ${to} with message: ${msg}?
+			Do you want to transfer ${amount} to ${receiver} with message: ${msg}?
 		`
 		await ChatRooms.sendMessage(room.id, {
 			text: botText,
