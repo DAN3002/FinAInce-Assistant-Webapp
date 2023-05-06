@@ -53,7 +53,6 @@ const Message = ({ message, isBot, hideAvatar, showName, roomId }) => {
 	}, [transactionId]);
 
 	const handleConfirm = async (transactionData) => {
-		console.log(transactionData);
 		const myOTP = await bankingAPI.getOTP();
 		const { value: otp } = await Swal.fire({
 			title: 'Enter your OTP',
@@ -83,8 +82,12 @@ const Message = ({ message, isBot, hideAvatar, showName, roomId }) => {
 				try {
 					// set transaction status to comfirmed from firebase
 					const docRef = doc(db, 'transaction', message.transactionId);
-					updateDoc(docRef, {
+					await updateDoc(docRef, {
 						status: 'confirmed',
+					});
+					// send message to bot
+					ChatRooms.sendBotMessage(roomId, {
+						text: transactionData.responseText,
 					});
 				} catch (e) {
 					console.log(e);

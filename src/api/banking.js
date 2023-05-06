@@ -42,7 +42,7 @@ const api = {
 		});
 	},
 	confirmTransfer: (tid, otp) => {
-		return axiosInstance.post(API_URLS.confirm, {}, {
+		return axiosInstance.post(API_URLS.confirm, {
 			tid: tid,
 			otp: otp,
 		}, {

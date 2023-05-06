@@ -19,6 +19,7 @@ import {
 } from "uuid";
 import Users from "./Users";
 import { processMessage } from "../utils/processMessage";
+import { BOT_DATA } from '../config';
 
 const ChatRooms = {
 	ref: collection(db, "chatRooms"),
@@ -109,12 +110,22 @@ const ChatRooms = {
 	},
 
 	hideSuggestions(roomId) {
-		console.log("hideSuggestions", roomId);
 		const ref = doc(db, "chatRooms", roomId);
 		return updateDoc(ref, {
 			'suggestion.clicked': true,
 		});
 	},
+
+	sendBotMessage(roomId, data) {
+		const messageData = {
+			...data,
+			sender: BOT_DATA.uid,
+			senderUsername: BOT_DATA.username,
+			createdAt: new Date(),
+		}
+
+		return this.sendMessage(roomId, messageData);
+	}
 };
 
 export default ChatRooms;
