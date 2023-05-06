@@ -9,6 +9,7 @@ import {
 	generatePrompt
 } from './openai';
 import extractPromptData from '../utils/extractPrompt';
+import { decodeMessage } from '../utils/processMessage';
 
 const API_URLS = {
 	chat: "/chat",
@@ -56,7 +57,7 @@ const api = {
 
 		for (const message of lastMessages) {
 			messages.push({
-				content: message.text,
+				content: decodeMessage(message.text),
 				user: message.sender === BOT_DATA.uid ?
 					"Assistant" : userIdToUsername[message.sender],
 			});

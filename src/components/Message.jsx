@@ -14,6 +14,7 @@ import bankingAPI from '../api/banking';
 import ChatRooms from "../models/ChatRooms";
 import handleModel from "../utils/handleModel";
 import changeMessageWidth from "../utils/changeMessageWidth";
+import { decodeMessage } from "../utils/processMessage";
 
 const Message = ({ message, isBot, hideAvatar, showName, roomId }) => {
 	const [transaction, setTransaction] = useState(null);
@@ -109,8 +110,7 @@ const Message = ({ message, isBot, hideAvatar, showName, roomId }) => {
 		// await ChatRooms.hideSuggestions(roomId);
 		await handleModel(roomId, messageData, currentUser);
 	}
-	message.text = message.text?.replace(/\\n/g, '\n');
-	message.text = message.text.trim();
+	message.text = decodeMessage(message.text);
 
 	// console.log(BOT_DATA);
 	return (

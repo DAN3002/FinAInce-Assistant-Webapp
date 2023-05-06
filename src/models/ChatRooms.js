@@ -18,7 +18,7 @@ import {
 	v4 as uuidv4
 } from "uuid";
 import Users from "./Users";
-import processMessage from "../utils/processMessage";
+import { processMessage } from "../utils/processMessage";
 
 const ChatRooms = {
 	ref: collection(db, "chatRooms"),

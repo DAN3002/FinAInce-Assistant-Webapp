@@ -5,6 +5,7 @@ import { ChatContext } from '../context/ChatContext';
 import { db } from '../firebase';
 import { BOT_DATA, USER_AVA } from '../config';
 import Avatar from '../utils/Avatar';
+import { decodeMessage } from '../utils/processMessage';
 
 const Chats = ({triggerSidebar}) => {
 	const [rooms, setRooms] = useState([]);
@@ -106,7 +107,7 @@ const Chats = ({triggerSidebar}) => {
 						<div className='flex flex-grow flex-col w-3/4'>
 							<b className='truncate'>{roomName}</b>
 							<span className='text-neutral-400 truncate'>
-								{room.lastMessage?.text}
+								{decodeMessage(room.lastMessage?.text)}
 							</span>
 						</div>
 					</div>
