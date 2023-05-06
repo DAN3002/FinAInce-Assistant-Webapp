@@ -10,6 +10,9 @@ import ChatRooms from "../models/ChatRooms";
 import Users from "../models/Users";
 import bankingAPI from "../api/banking";
 import handleModel from "../utils/handleModel";
+import showLoading from "../utils/showLoading";
+import Swal from 'sweetalert2';
+
 
 const Register = () => {
 	const [err, setErr] = useState(false);
@@ -19,6 +22,8 @@ const Register = () => {
 	const handleSubmit = async (e) => {
 		// setLoading(true);
 		e.preventDefault();
+		showLoading();
+
 		const email = e.target[0].value;
 		const username = e.target[1].value;
 		const fullName = e.target[2].value;
@@ -50,11 +55,20 @@ const Register = () => {
 			// 	senderUsername: "Chat Bot",
 			// });
 			await handleModel(newBotRoom.id, null, user);
+			Swal.close();
 			navigate("/");
 		} catch (err) {
+			Swal.close();
 			setErr(true);
 			console.log(err);
+			// close all swal
 			// setLoading(false);
+
+			Swal.fire({
+				icon: "error",
+				title: "Oops...",
+				text: err.message,
+			});
 		}
 	};
 
