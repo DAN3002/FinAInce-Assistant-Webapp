@@ -16,7 +16,8 @@ const transferMoney = async ({
 		const {
 			amount,
 			receiver,
-			msg
+			msg,
+			confirmation
 		} = action.params;
 
 		const transaction = await Transaction.createNewTransaction({
@@ -27,9 +28,11 @@ const transferMoney = async ({
 			responseText: message.content,
 		});
 
-		const botText = `
-			Do you want to transfer ${amount} to ${receiver} with message: ${msg}?
-		`
+		// const botText = `
+		// 	Do you want to transfer ${amount} to ${receiver} with message: ${msg}?
+		// `
+
+		const botText = confirmation;
 		await ChatRooms.sendMessage(room.id, {
 			text: botText,
 			sender: BOT_DATA.uid,
