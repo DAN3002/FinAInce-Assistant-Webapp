@@ -9,5 +9,7 @@ services:
         - REACT_APP_FIREBASE_KEY=${REACT_APP_FIREBASE_KEY}
         - REACT_APP_CHATGPT_KEY=${REACT_APP_CHATGPT_KEY}
     image: chat-webapp
+    volumes:
+      - .:/app
     ports:
       - "8080:80"
