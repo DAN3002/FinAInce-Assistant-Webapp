@@ -13,7 +13,7 @@ const Chat = ({ sidebarOpen }) => {
 	return (
 		<div
 			className="chat bg-white transition-transform duration-100 max-w-full"
-			stype={{ flex: 2 }}
+			style={{ flex: 2 }}
 		>
 			<div
 				style={{ height: "50px", paddingLeft: sidebarOpen ? "0" : "50px" }}
