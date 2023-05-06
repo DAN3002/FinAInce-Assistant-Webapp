@@ -1,10 +1,13 @@
 import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import Swal from "sweetalert2";
+
 import { auth } from "../firebase";
 import bankingAPI from "../api/banking";
 import Users from "../models/Users";
 import { ChatContext } from "../context/ChatContext";
+import showLoading from "../utils/showLoading";
 
 const Login = () => {
 	const [err, setErr] = useState(false);
@@ -13,6 +16,8 @@ const Login = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		showLoading();
+
 		const email = e.target[0].value;
 		const password = e.target[1].value;
 
@@ -38,10 +43,19 @@ const Login = () => {
 				type: "CHANGE_USER",
 				payload: {}
 			});
+			Swal.close();
 			navigate("/");
 		} catch (err) {
+			Swal.close();
 			console.log(err);
 			setErr(true);
+
+			// show error alert
+			Swal.fire({
+				icon: "error",
+				title: "Oops...",
+				text: err.message,
+			});
 		}
 	};
 	return (
