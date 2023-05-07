@@ -1,7 +1,8 @@
 import ChatRooms from "../models/ChatRooms";
 
 const viewAccountReport = async ({
-	room, currentUser
+	room,
+	currentUser
 }) => {
 	const username = currentUser.username;
 	const iframe = `/chart/transaction?user=${username}`

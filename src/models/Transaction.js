@@ -8,7 +8,14 @@ import {
 } from "../firebase";
 
 const Transaction = {
-	createNewTransaction: ({amount, msg='', from, to, responseText, category}) => {
+	createNewTransaction: ({
+		amount,
+		msg = '',
+		from,
+		to,
+		responseText,
+		category
+	}) => {
 		const transctionData = {
 			amount,
 			from,

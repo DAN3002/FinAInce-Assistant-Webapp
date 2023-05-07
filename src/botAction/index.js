@@ -6,10 +6,10 @@ import askAssistant from "./askAssistant";
 import viewAccountReport from "./viewAccountReport";
 
 export {
-	  checkBalance,
-	  createChatGroup,
-	  transferMoney,
-	  noBotAction,
-	  askAssistant,
-	  viewAccountReport
+	checkBalance,
+	createChatGroup,
+	transferMoney,
+	noBotAction,
+	askAssistant,
+	viewAccountReport
 };

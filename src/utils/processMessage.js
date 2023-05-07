@@ -10,7 +10,7 @@ export const processMessage = (message) => {
 	return message;
 };
 
-export const decodeMessage = (message='') => {
+export const decodeMessage = (message = '') => {
 	message = message.trim();
 	message = message.replace(/\\n/g, '\n');
 	message = message.replace(/&nbsp;/g, ' ');

@@ -8,7 +8,7 @@ import {
 } from "../firebase";
 
 const Users = {
-	async newUser (userId, userData) {
+	async newUser(userId, userData) {
 		// create and return new user
 		await setDoc(doc(db, "users", userId), userData);
 
@@ -17,7 +17,7 @@ const Users = {
 			...userData,
 		};
 	},
-	async getUserById (userId) {
+	async getUserById(userId) {
 		const userDoc = await getDoc(doc(db, "users", userId));
 		return userDoc.data();
 	}

@@ -5,10 +5,13 @@ import Transaction from "../models/Transaction";
 import ChatRooms from "../models/ChatRooms";
 
 const transferMoney = async ({
-	room, modelRes, currentUser
+	room,
+	modelRes,
+	currentUser
 }) => {
 	const {
-		action, message
+		action,
+		message
 	} = modelRes;
 
 	if (action.params) {

@@ -6,7 +6,9 @@ import {
 	BOT_DATA,
 	NLP_SERVER
 } from '../config';
-import { decodeMessage } from '../utils/processMessage';
+import {
+	decodeMessage
+} from '../utils/processMessage';
 import bankAPI from './banking';
 
 const API_URLS = {

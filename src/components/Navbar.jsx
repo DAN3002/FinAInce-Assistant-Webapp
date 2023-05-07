@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
-import Avatar from "../utils/Avatar";
+import React, { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
+import Avatar from '../utils/Avatar';
 
 const Navbar = () => {
 	const { currentUser } = useContext(AuthContext);
@@ -10,12 +10,11 @@ const Navbar = () => {
 	return (
 		<div>
 			<div
-				className="navbar shrink-0 bg-primary-500 flex items-center justify-between text-white"
+				className='navbar shrink-0 bg-primary-500 flex items-center justify-between text-white'
 				style={{
-					marginRight: "50px",
-				}}
-			>
-				<span className="logo">BHDL</span>
+					marginRight: '50px',
+				}}>
+				<span className='logo'>BHDL</span>
 				{/* <div className="user flex">
 					<img className="w-7 h-7" src={USER_AVA} alt="" />
 					<span className="mr-2">{currentUser.username}</span>
@@ -26,17 +25,17 @@ const Navbar = () => {
 					}
 				</div> */}
 			</div>
-			<div className="flex justify-around items-center py-2">
+			<div className='flex justify-around items-center py-2'>
 				<div>
 					<img
-						className="w-12 h-12 rounded-full"
-						alt=""
+						className='w-12 h-12 rounded-full'
+						alt=''
 						src={Avatar.FromName(currentUser.username)}
 					/>
 				</div>
-				<div className="flex flex-col">
-					<span className="text-xl">{currentUser.username}</span>
-					<span className="text-xs text-neutral-500">
+				<div className='flex flex-col'>
+					<span className='text-xl'>{currentUser.username}</span>
+					<span className='text-xs text-neutral-500'>
 						{currentUser.phone_number}
 					</span>
 				</div>

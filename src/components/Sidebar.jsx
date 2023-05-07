@@ -1,26 +1,23 @@
-import React from "react";
-import Navbar from "./Navbar";
-import Search from "./Search";
-import Chats from "./Chats";
-import { signOut } from "firebase/auth";
-import { auth } from "../firebase";
+import React from 'react';
+import Navbar from './Navbar';
+import Search from './Search';
+import Chats from './Chats';
+import { signOut } from 'firebase/auth';
+import { auth } from '../firebase';
 
-const Sidebar = ({triggerSidebar}) => {
+const Sidebar = ({ triggerSidebar }) => {
 	return (
-		<div className="sidebar h-full flex flex-col bg-white shadow-sm flex-0 relative gap-1">
+		<div className='sidebar h-full flex flex-col bg-white shadow-sm flex-0 relative gap-1'>
 			<Navbar />
 			<Search />
-			<Chats
-				triggerSidebar={triggerSidebar}
-			/>
+			<Chats triggerSidebar={triggerSidebar} />
 			<div
-				className="mt-auto flex justify-center items-center"
+				className='mt-auto flex justify-center items-center'
 				style={{
-					minHeight: "30px",
+					minHeight: '30px',
 				}}
-				onClick={() => signOut(auth)}
-			>
-				<div className="bg-primary-500 cursor-pointer py-1 px-3 rounded-xl text-white">
+				onClick={() => signOut(auth)}>
+				<div className='bg-primary-500 cursor-pointer py-1 px-3 rounded-xl text-white'>
 					Sign out
 				</div>
 			</div>

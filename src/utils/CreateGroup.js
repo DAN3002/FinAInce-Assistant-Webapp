@@ -1,6 +1,11 @@
 import ChatRooms from "../models/ChatRooms";
-import {db} from "../firebase";
-import {collection, getDocs} from "firebase/firestore";
+import {
+	db
+} from "../firebase";
+import {
+	collection,
+	getDocs
+} from "firebase/firestore";
 
 const createGroup = async (usernames) => {
 	const members = [];

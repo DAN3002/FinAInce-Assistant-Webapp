@@ -4,7 +4,8 @@ import {
 import ChatRooms from "../models/ChatRooms";
 
 const askAssistant = async ({
-	room, modelRes
+	room,
+	modelRes
 }) => {
 	const message = modelRes.message.content;
 	const suggestions = modelRes.suggestions || [];
@@ -32,7 +33,7 @@ const askAssistant = async ({
 	if (action.params && action.params.chart) {
 		const chart = action.params.chart;
 		const iframeLink = chart.iframeLink || [];
-		
+
 		for (const iframe of iframeLink) {
 			await ChatRooms.sendBotMessage(room.id, {
 				iframe,

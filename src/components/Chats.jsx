@@ -7,7 +7,7 @@ import { BOT_DATA } from '../config';
 import Avatar from '../utils/Avatar';
 import { decodeMessage } from '../utils/processMessage';
 
-const Chats = ({triggerSidebar}) => {
+const Chats = ({ triggerSidebar }) => {
 	const [rooms, setRooms] = useState([]);
 
 	const { currentUser } = useContext(AuthContext);

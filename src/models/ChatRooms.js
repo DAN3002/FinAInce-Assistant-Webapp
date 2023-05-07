@@ -14,8 +14,12 @@ import {
 	v4 as uuidv4
 } from "uuid";
 import Users from "./Users";
-import { processMessage } from "../utils/processMessage";
-import { BOT_DATA } from '../config';
+import {
+	processMessage
+} from "../utils/processMessage";
+import {
+	BOT_DATA
+} from '../config';
 
 const ChatRooms = {
 	ref: collection(db, "chatRooms"),
@@ -99,7 +103,7 @@ const ChatRooms = {
 	async getRoomById(roomId) {
 		const ref = doc(db, "chatRooms", roomId);
 		const docSnap = await getDoc(ref);
-		
+
 		const data = docSnap.data();
 		data.id = roomId;
 		return data;

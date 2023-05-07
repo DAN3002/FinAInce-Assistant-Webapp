@@ -1,9 +1,9 @@
-import { doc, onSnapshot } from "firebase/firestore";
-import React, { useContext, useEffect, useState } from "react";
-import { BOT_DATA } from "../config";
-import { ChatContext } from "../context/ChatContext";
-import { db } from "../firebase";
-import Message from "./Message";
+import { doc, onSnapshot } from 'firebase/firestore';
+import React, { useContext, useEffect, useState } from 'react';
+import { BOT_DATA } from '../config';
+import { ChatContext } from '../context/ChatContext';
+import { db } from '../firebase';
+import Message from './Message';
 
 const Messages = () => {
 	const [messages, setMessages] = useState([]);
@@ -13,7 +13,7 @@ const Messages = () => {
 
 	useEffect(() => {
 		if (data.roomId) {
-			const unSub = onSnapshot(doc(db, "chatRooms", data.roomId), (doc) => {
+			const unSub = onSnapshot(doc(db, 'chatRooms', data.roomId), (doc) => {
 				doc.exists() && setMessages(doc.data().messages);
 			});
 
@@ -26,11 +26,10 @@ const Messages = () => {
 	// console.log(messages);
 	return (
 		<div
-			className="messages overflow-scroll"
+			className='messages overflow-scroll'
 			style={{
-				height: "calc(100% - 110px)",
-			}}
-		>
+				height: 'calc(100% - 110px)',
+			}}>
 			{messages.map((m, i) => (
 				<Message
 					isBot={m.sender === BOT_DATA.uid}
