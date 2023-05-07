@@ -90,7 +90,7 @@ const Register = () => {
 						className="p-3 border-none outline-none bg-white"
 						required
 						type="text"
-						placeholder="Display name"
+						placeholder="Username"
 					/>
 					<input
 						className="p-3 border-none outline-none bg-white"
