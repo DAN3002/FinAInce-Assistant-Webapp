@@ -1,15 +1,11 @@
 /* eslint-disable no-lone-blocks */
 import {
-	setDoc,
 	doc,
 	updateDoc,
-	serverTimestamp,
 	collection,
 	addDoc,
 	getDocs,
 	getDoc,
-	where,
-	query,
 } from "firebase/firestore";
 import {
 	db

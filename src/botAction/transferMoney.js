@@ -3,7 +3,6 @@ import {
 } from "../config";
 import Transaction from "../models/Transaction";
 import ChatRooms from "../models/ChatRooms";
-import { parse } from "uuid";
 
 const transferMoney = async ({
 	room, modelRes, currentUser

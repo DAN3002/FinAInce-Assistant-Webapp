@@ -6,10 +6,6 @@ import {
 	BOT_DATA,
 	NLP_SERVER
 } from '../config';
-import {
-	generatePrompt
-} from './openai';
-import extractPromptData from '../utils/extractPrompt';
 import { decodeMessage } from '../utils/processMessage';
 import bankAPI from './banking';
 

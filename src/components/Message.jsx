@@ -1,13 +1,12 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { onSnapshot, collection } from 'firebase/firestore';
+import { onSnapshot } from 'firebase/firestore';
 import { AuthContext } from '../context/AuthContext';
 import Swal from 'sweetalert2';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-import { BOT_DATA, USER_AVA, NLP_SERVER } from '../config';
-import axios from 'axios';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { BOT_DATA, NLP_SERVER } from '../config';
+import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import Avatar from '../utils/Avatar';
 import bankingAPI from '../api/banking';

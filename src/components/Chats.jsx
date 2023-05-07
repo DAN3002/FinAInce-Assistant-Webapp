@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { ChatContext } from '../context/ChatContext';
 import { db } from '../firebase';
-import { BOT_DATA, USER_AVA } from '../config';
+import { BOT_DATA } from '../config';
 import Avatar from '../utils/Avatar';
 import { decodeMessage } from '../utils/processMessage';
 

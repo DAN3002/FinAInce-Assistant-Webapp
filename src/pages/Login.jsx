@@ -12,7 +12,7 @@ import showLoading from "../utils/showLoading";
 const Login = () => {
 	const [err, setErr] = useState(false);
 	const navigate = useNavigate();
-	const { data, dispatch } = useContext(ChatContext);
+	const { dispatch } = useContext(ChatContext);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();

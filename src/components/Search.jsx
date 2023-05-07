@@ -4,11 +4,6 @@ import {
 	query,
 	where,
 	getDocs,
-	setDoc,
-	doc,
-	updateDoc,
-	serverTimestamp,
-	getDoc,
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { AuthContext } from "../context/AuthContext";

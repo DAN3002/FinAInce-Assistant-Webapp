@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-// import Add from '../img/addAvatar.png';
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth, db } from "../firebase";
-// import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { doc, setDoc } from "firebase/firestore";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
 import { useNavigate, Link } from "react-router-dom";
 import { BOT_DATA } from "../config";
 import ChatRooms from "../models/ChatRooms";
@@ -12,7 +9,6 @@ import bankingAPI from "../api/banking";
 import handleModel from "../utils/handleModel";
 import showLoading from "../utils/showLoading";
 import Swal from 'sweetalert2';
-
 
 const Register = () => {
 	const [err, setErr] = useState(false);

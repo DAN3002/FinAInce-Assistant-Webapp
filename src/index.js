@@ -9,8 +9,6 @@ root.render(
 	<AuthContextProvider>
 		<ChatContextProvider>
 				<App />
-			{/* <React.StrictMode>
-			</React.StrictMode> */}
 		</ChatContextProvider>
 	</AuthContextProvider>
 );
