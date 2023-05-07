@@ -14,7 +14,7 @@ const Navbar = () => {
 				style={{
 					marginRight: '50px',
 				}}>
-				<span className='logo'>BHDL</span>
+				<span className='logo'>FinAInce Assistant</span>
 				{/* <div className="user flex">
 					<img className="w-7 h-7" src={USER_AVA} alt="" />
 					<span className="mr-2">{currentUser.username}</span>
