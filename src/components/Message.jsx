@@ -197,15 +197,29 @@ const Message = ({ message, isBot, hideAvatar, showName, roomId }) => {
 						</div>
 						<>
 							{(message.suggestion && !message.suggestion.clicked) && (
-								message.suggestion.choices.map((suggestion) => (
-									<button
-										key={suggestion}
-										className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'
-										onClick={() => handleClickSuggestion(suggestion)}
-									>
-											{suggestion}
-									</button>
-								))
+								message.suggestion.choices.map((suggestion) => {
+									if (suggestion.text && suggestion.value) {
+										return (
+											<button
+												key={suggestion}
+												className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'
+												onClick={() => handleClickSuggestion(suggestion.value)}
+											>
+												{suggestion.text}
+											</button>
+										)
+									} else {
+										return (
+											<button
+												key={suggestion}
+												className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'
+												onClick={() => handleClickSuggestion(suggestion)}
+											>
+												{suggestion}
+											</button>
+										)
+									}
+								})
 							)}
 						</>
 					</>
