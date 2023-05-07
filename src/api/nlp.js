@@ -11,6 +11,7 @@ import {
 } from './openai';
 import extractPromptData from '../utils/extractPrompt';
 import { decodeMessage } from '../utils/processMessage';
+import bankAPI from './banking';
 
 const API_URLS = {
 	chat: "/chat",
@@ -69,6 +70,13 @@ const api = {
 		// call api
 		// const chaGPT = await generatePrompt(messages);
 		// return extractPromptData(chaGPT);
+
+		// get userBalance
+		const user = await bankAPI.checkUser();
+		const userData = user.data.data;
+		const balance = userData.balance.amount;
+
+		body.userBalance = balance;
 
 		const response = await axiosInstance.post(API_URLS.chat, body, {
 			withCredentials: false,
