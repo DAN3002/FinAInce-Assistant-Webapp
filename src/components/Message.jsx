@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { onSnapshot, collection } from 'firebase/firestore';
 import { AuthContext } from '../context/AuthContext';
 import Swal from 'sweetalert2';
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 import { BOT_DATA, USER_AVA, NLP_SERVER } from '../config';
 import axios from 'axios';
@@ -11,10 +11,10 @@ import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import Avatar from '../utils/Avatar';
 import bankingAPI from '../api/banking';
-import ChatRooms from "../models/ChatRooms";
-import handleModel from "../utils/handleModel";
-import changeMessageWidth from "../utils/changeMessageWidth";
-import { decodeMessage } from "../utils/processMessage";
+import ChatRooms from '../models/ChatRooms';
+import handleModel from '../utils/handleModel';
+import changeMessageWidth from '../utils/changeMessageWidth';
+import { decodeMessage } from '../utils/processMessage';
 
 const Message = ({ message, isBot, hideAvatar, showName, roomId }) => {
 	const [transaction, setTransaction] = useState(null);
@@ -112,7 +112,7 @@ const Message = ({ message, isBot, hideAvatar, showName, roomId }) => {
 		});
 		// await ChatRooms.hideSuggestions(roomId);
 		await handleModel(roomId, messageData, currentUser);
-	}
+	};
 	message.text = decodeMessage(message.text);
 
 	// console.log(BOT_DATA);
@@ -196,31 +196,33 @@ const Message = ({ message, isBot, hideAvatar, showName, roomId }) => {
 								)}
 						</div>
 						<>
-							{(message.suggestion && !message.suggestion.clicked) && (
+							{message.suggestion &&
+								!message.suggestion.clicked &&
 								message.suggestion.choices.map((suggestion) => {
 									if (suggestion.text && suggestion.value) {
 										return (
 											<button
 												key={suggestion}
 												className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'
-												onClick={() => handleClickSuggestion(suggestion.value)}
-											>
+												onClick={() =>
+													handleClickSuggestion(suggestion.value)
+												}>
 												{suggestion.text}
 											</button>
-										)
+										);
 									} else {
 										return (
 											<button
 												key={suggestion}
 												className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'
-												onClick={() => handleClickSuggestion(suggestion)}
-											>
+												onClick={() =>
+													handleClickSuggestion(suggestion)
+												}>
 												{suggestion}
 											</button>
-										)
+										);
 									}
-								})
-							)}
+								})}
 						</>
 					</>
 				)}
@@ -232,14 +234,50 @@ const Message = ({ message, isBot, hideAvatar, showName, roomId }) => {
 						style={{
 							width: '980px',
 							height: '605px',
-						}}
-					>
-							Loading...
+						}}>
+						Loading...
 					</iframe>
 				)}
 				{message.img && (
-					<img src={message.img} className='w-1/2 rounded-3xl' alt='' />
+					<img src={message.img} className='w-1/4 rounded-3xl' alt='' />
 				)}
+				{/* <div
+					style={{
+						marginBottom: '10px',
+					}}
+				>
+					{message.newsData &&
+						message.newsData.map((news) => (
+							<div
+								className='max-w-sm rounded overflow-hidden shadow-lg'
+								style={{
+									maxWidth: '20%',
+									display: 'inline-block',
+									paddingRight: '10px',
+								}}>
+								<img
+									className='w-full'
+									// src={news.banner_image}
+									src='https://v1.tailwindcss.com/img/card-top.jpg'
+									alt='Sunset in the mountains'
+									style={{}}
+								/>
+								<div className='px-6 py-4'>
+									<div className='font-bold text-xl mb-2'>
+										{news.title}
+									</div>
+									<p className='text-gray-700 text-base'
+										style={{
+											maxWidth: '150px',
+											overflow: 'hidden',
+										}}
+									>
+										{news.summary}
+									</p>
+								</div>
+							</div>
+						))}
+				</div> */}
 			</div>
 		</div>
 	);
