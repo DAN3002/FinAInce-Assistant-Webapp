@@ -129,6 +129,7 @@ const Message = ({ message, isBot, hideAvatar, showName, roomId }) => {
 						<img
 							className='w-8 h-8 rounded-full'
 							src={BOT_DATA.photoURL}
+							alt='user-avatar'
 						/>
 					) : (
 						<img

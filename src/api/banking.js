@@ -34,7 +34,6 @@ const api = {
 		});
 	},
 	getOTP: () => {
-		console.log(localStorage.getItem('Banking_token'));
 		return axiosInstance.post(API_URLS.otp, {}, {
 			headers: {
 				Authorization: `Bearer ${localStorage.getItem('Banking_token')}`,
