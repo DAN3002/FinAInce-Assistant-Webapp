@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
-import { BOT_DATA, USER_AVA } from '../config';
+import { BOT_DATA, USER_AVA, NLP_SERVER } from '../config';
 import axios from 'axios';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase';
@@ -213,7 +213,7 @@ const Message = ({ message, isBot, hideAvatar, showName, roomId }) => {
 				{message.iframe && (
 					<iframe
 						className='w-full h-96'
-						src={message.iframe}
+						src={NLP_SERVER + message.iframe}
 						title='description'
 						style={{
 							width: '980px',
