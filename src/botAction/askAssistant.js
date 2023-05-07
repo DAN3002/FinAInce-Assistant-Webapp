@@ -41,10 +41,18 @@ const askAssistant = async ({
 
 		// check for news
 		if (chart.type === 'news') {
-			// const newsData = chart.data || [];
-			// await ChatRooms.sendBotMessage(room.id, {
-			// 	newsData,
-			// });
+			const newsData = chart.data || [];
+			await ChatRooms.sendBotMessage(room.id, {
+				newsData: newsData.map((news) => {
+					return {
+						title: news.title,
+						url: news.url,
+						summary: news.summary,
+						banner_image: news.banner_image,
+						authors: news.authors,
+					}
+				})
+			});
 		}
 	}
 }
