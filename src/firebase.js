@@ -11,14 +11,8 @@ import {
 	getFirestore
 } from "firebase/firestore";
 
-const firebaseConfig = {
-	apiKey: process.env.REACT_APP_FIREBASE_KEY,
-	authDomain: "junctionx-web-app.firebaseapp.com",
-	projectId: "junctionx-web-app",
-	storageBucket: "junctionx-web-app.appspot.com",
-	messagingSenderId: "478198570445",
-	appId: "1:478198570445:web:72eeaab7d7665bb75c3884"
-};
+// read from firebaseConfig.json
+import firebaseConfig from "./firebaseConfig.json";
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
