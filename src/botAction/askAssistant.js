@@ -29,13 +29,22 @@ const askAssistant = async ({
 	}
 	await ChatRooms.sendMessage(room.id, messageData);
 
-	if (action.params && action.params.chart && action.params.chart.iframeLink) {
-		const iframeLink = action.params.chart.iframeLink;
+	if (action.params && action.params.chart) {
+		const chart = action.params.chart;
+		const iframeLink = chart.iframeLink || [];
 		
 		for (const iframe of iframeLink) {
 			await ChatRooms.sendBotMessage(room.id, {
 				iframe,
 			});
+		}
+
+		// check for news
+		if (chart.type === 'news') {
+			// const newsData = chart.data || [];
+			// await ChatRooms.sendBotMessage(room.id, {
+			// 	newsData,
+			// });
 		}
 	}
 }
