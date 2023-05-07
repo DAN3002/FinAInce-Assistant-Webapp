@@ -17,11 +17,13 @@ const transferMoney = async ({
 			amount,
 			receiver,
 			msg,
-			confirmation
+			confirmation,
+			category,
 		} = action.params;
 
 		const transaction = await Transaction.createNewTransaction({
 			msg,
+			category,
 			amount: parseInt(amount),
 			to: receiver,
 			from: currentUser.username,
