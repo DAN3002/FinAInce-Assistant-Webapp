@@ -70,11 +70,15 @@ const api = {
 		// return extractPromptData(chaGPT);
 
 		// get userBalance
-		const user = await bankAPI.checkUser();
-		const userData = user.data.data;
-		const balance = userData.balance.amount;
-
-		body.userBalance = balance;
+		if (body.messages.length) {
+			const user = await bankAPI.checkUser();
+			const userData = user.data.data;
+			const balance = userData.balance.amount;
+	
+			body.userBalance = balance;
+		} else {
+			body.userBalance = 0;
+		}
 
 		const response = await axiosInstance.post(API_URLS.chat, body, {
 			withCredentials: false,
