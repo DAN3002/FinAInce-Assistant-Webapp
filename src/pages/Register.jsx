@@ -76,7 +76,7 @@ const Register = () => {
 		<div className='w-screen h-screen flex items-center justify-center'>
 			<div className='flex flex-col bg-primary-50 rounded-xl p-5 gap-2 w-1/3'>
 				<span className='text-primary-500 font-extrabold text-center text-3xl'>
-					FinAInce Assistant
+					FinChat - AurorAI
 				</span>
 				<span className='title text-primary-300 text-xl'>Register</span>
 				<form onSubmit={handleSubmit} className='flex flex-col gap-3'>
