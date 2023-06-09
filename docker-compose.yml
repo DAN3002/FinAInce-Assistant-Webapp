@@ -8,6 +8,7 @@ services:
       args:
         - REACT_APP_FIREBASE_KEY=${REACT_APP_FIREBASE_KEY}
         - REACT_APP_CHATGPT_KEY=${REACT_APP_CHATGPT_KEY}
+        - FIREBASE_JSON=${FIREBASE_JSON}
     image: chat-webapp
     volumes:
       - .:/app

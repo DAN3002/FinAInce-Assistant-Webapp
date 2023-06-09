@@ -13,6 +13,10 @@ RUN npm install
 # Copy the rest of the application's code into the container
 COPY . .
 
+ARG FIREBASE_JSON
+
+RUN echo "$FIREBASE_JSON" > /app/src/firebaseConfig.json
+
 # Build the application
 RUN npm run build
 
