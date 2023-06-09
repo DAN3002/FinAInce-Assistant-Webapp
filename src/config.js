@@ -8,4 +8,4 @@ export const BOT_DATA = {
 export const USER_AVA = './user-avatar.png';
 
 export const NLP_HISTORY_LIMIT = -1;
-export const NLP_SERVER = 'https://ai-bhdl.jsclub.me';
+export const NLP_SERVER = 'https://ai-finchat.thaiminhpv.tech:450';

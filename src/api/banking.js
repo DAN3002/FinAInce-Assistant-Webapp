@@ -9,7 +9,7 @@ const API_URLS = {
 };
 
 const axiosInstance = axios.create({
-	baseURL: 'https://be-bhdl.jsclub.me/api',
+	baseURL: 'https://finchat.thaiminhpv.tech:450/api',
 });
 
 const api = {
